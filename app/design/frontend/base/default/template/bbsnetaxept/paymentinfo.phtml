@@ -22,6 +22,8 @@ $logoUrl = $this->getLogo();
 <?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?>
 <?php if (!empty($logoUrl)): ?>
   <br />
-  <img alt="logo" src="<?php echo $this->getSkinUrl($logoUrl); ?>" />
+  <?php foreach($logoUrl as $_url): ?>
+  <img alt="logo" src="<?php echo $this->getSkinUrl($_url); ?>" />
+  <?php endforeach; ?>
 <?php endif;?>
 </p>

@@ -1,42 +1,42 @@
 <?xml version="1.0"?>
 <config>
-	<modules>
-		<Trollweb_BBSNetAxept>
-    	    <version>1.6.1</version>
-        	<depends>
-        		<Mage_Payment />
-        	</depends>
-	    </Trollweb_BBSNetAxept>
-	</modules>
-	
+    <modules>
+        <Trollweb_BBSNetAxept>
+            <version>2.2.0</version>
+            <depends>
+                <Mage_Payment />
+            </depends>
+        </Trollweb_BBSNetAxept>
+    </modules>
+    
     <global>
-    	<models>
-        	<bbsnetaxept>
-            	<class>Trollweb_BBSNetAxept_Model</class>
+        <models>
+            <bbsnetaxept>
+                <class>Trollweb_BBSNetAxept_Model</class>
             </bbsnetaxept>
         </models>
         
         <helpers>
-     		<bbsnetaxept>
-        		<class>Trollweb_BBSNetAxept_Helper</class>
-      		</bbsnetaxept>
-    	</helpers>
+            <bbsnetaxept>
+                <class>Trollweb_BBSNetAxept_Helper</class>
+            </bbsnetaxept>
+        </helpers>
        
         <resources>
-        	<bbsnetaxept_setup>
-            	<setup>
-	                <module>Trollweb_BBSNetAxept</module>
-	                <class>Trollweb_BBSNetAxept_Model_Entity_Setup</class>
+            <bbsnetaxept_setup>
+                <setup>
+                    <module>Trollweb_BBSNetAxept</module>
+                    <class>Trollweb_BBSNetAxept_Model_Entity_Setup</class>
                 </setup>
                 <connection>
-	            	<use>core_setup</use>
+                    <use>core_setup</use>
                 </connection>
             </bbsnetaxept_setup> 
             <bbsnetaxept_write>
-            	<use>core_write</use>
+                <use>core_write</use>
             </bbsnetaxept_write>
             <bbsnetaxept_read>
-            	<use>core_read</use>
+                <use>core_read</use>
             </bbsnetaxept_read>
         </resources>
         
@@ -45,24 +45,54 @@
         </blocks>
         
         <payment>
-        	<bbsnetaxept>
-        		<authcode>
-        			<code>authcode</code>
-        			<name>Auth Code</name>
-        		</authcode>
-        	</bbsnetaxept>
+            <bbsnetaxept>
+                <authcode>
+                    <code>authcode</code>
+                    <name>Auth Code</name>
+                </authcode>
+            </bbsnetaxept>
         </payment>
 
        <sales>
           <order>
            <statuses>
-            <pending_bbs translate="label" type="label">
-              <label>Pending BBS</label>
-            </pending_bbs>
+            <pending_nets translate="label" type="label">
+              <label>Pending Nets</label>
+            </pending_nets>
            </statuses>
           </order>
-        </sales>        
-	</global>
+        </sales>   
+        <!-- 
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <bbsnetaxept>
+                        <class>bbsnetaxept/updates</class>
+                        <method>check</method>
+                    </bbsnetaxept>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+         -->
+         <events>
+            <sales_order_payment_cancel>
+                <observers>
+                    <bbsnetaxept_cancel>
+                        <class>bbsnetaxept/observer</class>
+                        <method>voidPayment</method>
+                    </bbsnetaxept_cancel>
+                </observers>
+            </sales_order_payment_cancel>
+            <core_config_data_save_after>
+                <observers>
+                    <bbsnetaxept_save_config>
+                        <class>bbsnetaxept/observer</class>
+                        <method>core_config_data_save_after</method>
+                    </bbsnetaxept_save_config>
+                </observers>
+            </core_config_data_save_after>
+        </events>
+    </global>
 
     <frontend>
         <secure_url>
@@ -77,41 +107,59 @@
                 </args>
             </bbsnetaxept>
         </routers>
-				<translate>
-					<modules>
-						<Trollweb_BBSNetAxept>
-							<files>
-								<default>Trollweb_BBSNetaxept.csv</default>
-						  </files>
-						</Trollweb_BBSNetAxept>
-					</modules>
-				</translate>
+        <translate>
+            <modules>
+                <Trollweb_BBSNetAxept>
+                    <files>
+                        <default>Trollweb_BBSNetaxept.csv</default>
+                  </files>
+                </Trollweb_BBSNetAxept>
+            </modules>
+        </translate>
+        <layout>
+          <updates>
+            <bbsnetaxept>
+              <file>bbsnetaxept.xml</file>
+            </bbsnetaxept>
+          </updates>            
+        </layout>
     </frontend>
 
 
        
     <default>
-    	<payment>
-        	<bbsnetaxept_withgui>
-            	<active>0</active>
+      <trollweb>
+        <updates>
+          <url>updates.trollweb.no/</url>
+          <check_frequencey>86400</check_frequencey>
+          <enabled>0</enabled>
+        </updates>
+      </trollweb>
+        <payment>
+            <bbsnetaxept_withgui>
+                <active>0</active>
                 <title>Kredittkort</title>
-                <cctypes>AE,VI,MC,DI</cctypes>
+                <cctypes>VI,MC</cctypes>
                 <merchant_id backend_model="adminhtml/system_config_backend_encrypted" />
                 <merchant_token backend_model="adminhtml/system_config_backend_encrypted" />
-								<merchant_test_token backend_model="adminhtml/system_config_backend_encrypted" />
-								<test_mode>0</test_mode>
+                <merchant_test_token backend_model="adminhtml/system_config_backend_encrypted" />
+                <mobile_merchant_id backend_model="adminhtml/system_config_backend_encrypted" />
+                <mobile_merchant_token backend_model="adminhtml/system_config_backend_encrypted" />
+                <mobile_test_token backend_model="adminhtml/system_config_backend_encrypted" />
+                <test_mode>1</test_mode>
                 <use_gui>1</use_gui>
                 <gui_language>no_NO</gui_language>
-                <order_status>pending_bbs</order_status>
-                <auth_order_status>0</auth_order_status>
+                <order_status>pending_nets</order_status>
+                <auth_order_status>processing</auth_order_status>
                 <allowspecific>0</allowspecific>
-                <sort_order>90</sort_order>
+                <sort_order>10</sort_order>
                 <payment_action>auth</payment_action>
                 <regcode backend_model="adminhtml/system_config_backend_encrypted" />
-                <logo>0</logo>
-                <redirect_text>Du vil bli sendt til en sikker side hos BBS for inntasting av kredittkort-detaljene dine når du har fullført bestillingen.</redirect_text>
-								<pending_minutes>0</pending_minutes>
-								<enable_log>0</enable_log>
+                <logo>2</logo>
+                <redirect_text>Du vil bli sendt til en sikker side hos Nets for inntasting av kredittkort-detaljene dine når du har fullført bestillingen.</redirect_text>
+                                <pending_minutes>120</pending_minutes>
+                                <enable_log>0</enable_log>
+                                <singlepage>0</singlepage>
                 
                 <model>bbsnetaxept/withGUI</model>
             </bbsnetaxept_withgui>

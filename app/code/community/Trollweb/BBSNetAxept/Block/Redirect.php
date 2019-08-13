@@ -22,44 +22,20 @@ class Trollweb_BBSNetAxept_Block_Redirect extends Mage_Core_Block_Abstract
     protected function _toHtml()
     {
 
-        $standard = Mage::getModel('bbsnetaxept/withGUI');
-        
-        $bbsTransKey = $standard->getBBSTransKey();
-        
-        $form = new Varien_Data_Form();
-        $form->setAction($standard->getBBSUrl())
-            ->setId('BBS_WithGUI_checkout')
-            ->setName('BBS_WithGUI_checkout')
-            ->setMethod('POST')
-            ->setUseContainer(true);
+        $url = $this->getNetsUrl();
 
-            
-        if ($standard->useInternalGUI()) {
-          $ccInfo = $standard->getCheckout()->getCardInfo();
-          if (!($ccInfo instanceof Varien_Object)) {
-            $ccInfo = new  Varien_Object($ccInfo);
-          }
-          
-          switch ($ccInfo->getCcType()) {
-            case 'VI': $prefix = 'v'; break;
-            case 'MC': $prefix = 'm'; break;
-            case 'AE': $prefix = 'a'; break;
-            case 'DI': $prefix = 'd'; break;
-            default:   $prefix = 'v'; break;
-          }
-          
-          $form->addField($prefix.'a','hidden', array('name' => $prefix.'a', "value" => $ccInfo->getCcNumber()));
-          $form->addField($prefix.'m','hidden', array('name' => $prefix.'m', "value" => sprintf("%02u",(int)$ccInfo->getCcExpMonth())));
-          $form->addField($prefix.'y','hidden', array('name' => $prefix.'y', "value" => substr($ccInfo->getCcExpYear(),-2)));
-          $form->addField($prefix.'c','hidden', array('name' => $prefix.'c', "value" => $ccInfo->getCcCid()));          
-        }
-
-        $form->addField('BBSePay_transaction','hidden', array("name"=>'BBSePay_transaction', "value"=>$bbsTransKey));
-        $html = '<html><body>';
-        $html.= $this->__('You will be redirected to BBS NetAxept in a few seconds.');
-        $html.= $form->toHtml();
-        $html.= '<script type="text/javascript">document.getElementById("BBS_WithGUI_checkout").submit();</script>';
-        $html.= '</body></html>';
+        $html = '<html>';
+        $html .= '<head>';
+        $html .= '<title>'.$this->getNetsMessage().'</title>';
+        $html .= '</head>';
+        $html .= '<body>';
+        $html .= $this->getNetsMessage().'<br />';
+        $html .= '<a href="'.$url.'">'.$this->__('Click here if you are not redirected within 10 seconds.').'</a>';
+        $html .= '<script type="text/javascript">';
+        $html .= '  setTimeout(function(){ window.location="'.$url.'"; },100);';
+        $html .= '</script>';
+        $html .= '</body>';
+        $html .= '</html>';
 
         return $html;
     }

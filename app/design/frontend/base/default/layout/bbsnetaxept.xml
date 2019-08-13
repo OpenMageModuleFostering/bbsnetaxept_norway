@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs"><script>bbsnetaxept/modernizr_touch.js</script></action>
+        </reference>
+    </checkout_onepage_index>
+
+    <gomage_checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs"><script>bbsnetaxept/modernizr_touch.js</script></action>
+        </reference>        
+    </gomage_checkout_onepage_index>
+
+</layout>

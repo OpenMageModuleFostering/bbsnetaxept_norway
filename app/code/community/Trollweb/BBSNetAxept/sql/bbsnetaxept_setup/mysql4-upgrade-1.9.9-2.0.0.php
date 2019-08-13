@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * BBS NetAxept, Norge
  *
@@ -17,21 +17,12 @@
  *
  */
 
-class Trollweb_BBSNetAxept_Block_Form extends Mage_Payment_Block_Form
-{
-    protected function _construct()
-    {
-        $this->setTemplate('bbsnetaxept/form.phtml');
-        parent::_construct();
-    }
+$installer = $this;
 
-    protected function getLogo()
-    {
-      return $this->getMethod()->getLogoUrl();
-    }
+$installer->startSetup();
 
-    protected function getRedirectText()
-    {
-    	return $this->getMethod()->getRedirectText();
-    }
-}
+$statusTable = $installer->getTable('sales/order_status');
+$data = array(array('status' => 'pending_nets', 'label' => 'Venter på kort'));
+$installer->getConnection()->insertArray($statusTable, array('status', 'label'), $data);
+
+$installer->endSetup();

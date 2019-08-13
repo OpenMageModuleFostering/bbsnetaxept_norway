@@ -1,296 +1,947 @@
-<?php //003ab
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');@dl($__ln);if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('Site error: the file <b>'.__FILE__.'</b> requires the ionCube PHP Loader '.basename($__ln).' to be installed by the site administrator.');exit(199);
-?>
-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
-8uKI4bQDtQmzLu49kBWwtUQMhsu8v2S=
+<?php
+/**
+ * BBS NetAxept, Norge
+ *
+ * LICENSE AND USAGE INFORMATION
+ * It is NOT allowed to modify, copy or re-sell this file or any
+ * part of it. Please contact us by email at post@trollweb.no or
+ * visit us at www.trollweb.no/bbs if you have any questions about this.
+ * Trollweb is not responsible for any problems caused by this file.
+ *
+ * Visit us at http://www.trollweb.no today!
+ *
+ * @category   Trollweb
+ * @package    Trollweb_BBSNetAxept
+ * @copyright  Copyright (c) 2009 Trollweb (http://www.trollweb.no)
+ * @license    Single-site License
+ *
+ */
+
+
+/**
+* Our test CC module adapter
+*/
+class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstract
+{
+    protected $_code = 'bbsnetaxept_withgui';
+    protected $_formBlockType = 'bbsnetaxept/form';
+    protected $_infoBlockType = 'bbsnetaxept/paymentInfo';
+
+
+    //* Options *//
+    protected $_isGateway               = true;
+    protected $_canAuthorize            = true;
+    protected $_canCapture              = true;
+    protected $_canCapturePartial       = true;
+    protected $_canRefund               = true;
+    protected $_canRefundInvoicePartial = true;
+    protected $_canVoid                 = false;
+    protected $_canUseInternal          = true;
+    protected $_canUseCheckout          = true;
+    protected $_canUseForMultishipping  = false;
+    protected $_canSaveCc               = false;
+    protected $_isInitializeNeeded      = true;
+
+    // Direct payment methods
+    protected $_directPaymentMethods = array(
+            'SwedishBankHandelsbanken',
+            'SwedishBankNordea',
+            'SwedishBankSwedbank',
+            'SwedishBankSEB',
+    );
+
+    // Gift card methods
+    protected $_giftCardMethods = array(
+        'GiftCard',
+        'GiftCardCenter'
+    );
+
+    // Internal Flags
+    protected $_useMobile;
+
+    // TEST HOST
+    const TEST_HOST       = 'epayment-test.bbs.no';
+    const PROD_HOST       = 'epayment.bbs.no';
+
+    // Attributes
+    const TRANSACTION_ID        = 'bbs_transaction_id';
+    const AUTHENTICATED_STATUS  = 'bbs_authenticated_status';
+    const AUTHENTICATED_WITH    = 'bbs_authenticated_with';
+    const ISSUER_COUNTRY        = 'bbs_issuer_country';
+    const ISSUER                = 'bbs_issuer';
+    const ISSUER_ID             = 'bbs_issuer_id';
+    const AUTHORIZATION_ID      = 'bbs_authorization_id';
+    const SESSION_NUMBER        = 'bbs_session_number';
+    const PAYMENTMETHOD         = 'bbs_payment_method';
+    const MOBILE_CLIENT         = 'bbs_mobile_client';
+    const IS_GIFTCARD           = 'bbs_is_giftcard';
+    const GIFTCARD_AMOUNT       = 'bbs_giftcard_amount';
+    const CHILD_TRANSACTION     = 'bbs_child_transaction';
+
+    const ORDER_STATUS          = 'pending_nets';
+
+    /**
+     * Get checkout session namespace
+     *
+     * @return Mage_Checkout_Model_Session
+     */
+    public function getCheckout()
+    {
+        return Mage::getSingleton('checkout/session');
+    }
+
+    /**
+     * Get current quote
+     *
+     * @return Mage_Sales_Model_Quote
+     */
+    public function getQuote()
+    {
+        return $this->getCheckout()->getQuote();
+    }
+
+    /**
+     * Assign data to info model instance
+     *
+     * @param   mixed $data
+     * @return  Mage_Payment_Model_Info
+     */
+    public function assignData($data)
+    {
+        if (!($data instanceof Varien_Object)) {
+            $data = new Varien_Object($data);
+        }
+
+        $info = $this->getInfoInstance();
+        $info->setCcType($data->getCcType())
+            ->setCcOwner($data->getCcOwner())
+            ->setCcLast4(substr($data->getCcNumber(), -4))
+            ->setCcNumber($data->getCcNumber())
+            ->setCcCid($data->getCcCid())
+            ->setCcExpMonth($data->getCcExpMonth())
+            ->setCcExpYear($data->getCcExpYear());
+
+        if ($this->getConfigData('mobile_active') && $data->getNetsMobile()) {
+            $this->getCheckout()->setNetsMobile(true);
+        }
+        else {
+            $this->getCheckout()->setNetsMobile(false);
+        }
+        return $this;
+    }
+
+    /**
+     * Checks if the user's cart is under the limit set in
+     * the admin config, the option isn't set or the value
+     * of the option is set to ' ' or '0'.
+     *
+     * @param Mage_Sales_Model_Quote $quote Shopping cart quote
+     */
+    protected function cartOverLimit($quote) {
+        $_maxAmountSet = $this->getConfigData('max_amount');
+        $_maxAmountValue = $this->getConfigData('max_amount_value');
+
+        // If setting disabled:
+        if($_maxAmountSet == 0) {
+                return false;
+        }
+        // If setting enabled and no value:
+        else if($_maxAmountSet == 1 && empty($_maxAmountValue)) { // empty() is equivalent to !isset(var) || var == false
+                return false;
+        }
+        // If setting enabled and value > cart value
+        else if($quote->getBaseGrandTotal() < $_maxAmountValue) {
+                return false;
+        }
+        
+        return true; // Option enabled and cart over limit
+
+    }
+
+    public function isAvailable($quote=null)
+    {
+        if ($this->getConfigData('use_gui') == 1) {
+          $this->_formBlockType = 'bbsnetaxept/form';
+          $this->_infoBlockType = 'bbsnetaxept/paymentInfo';
+
+        }
+        else {
+          $this->_formBlockType = 'payment/form_cc';
+          $this->_infoBlockType = 'payment/info_cc';
+
+        }
+
+        if($this->cartOverLimit($quote)) {
+                return false;
+        }
+        return $this->getConfigData('active');
+    }
+
+    /**
+     * Retrieve payment method title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->getConfigData('title');
+    }
+
+    /**
+     * Method that will be executed instead of authorize or capture
+     * if flag isInitilizeNeeded set to true
+     *
+     * @param   string $paymentAction
+     * @param   Varien_Object $stateObject
+     * @return  Mage_Payment_Model_Abstract
+     */
+    public function initialize($paymentAction, $stateObject)
+    {
+        $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
+        $stateObject->setState($state);
+        $stateObject->setStatus(self::ORDER_STATUS);
+        $stateObject->setIsNotified(false);
+    }
+
+    /**
+     * Using internal pages for input payment data
+     *
+     * @return bool
+     */
+    public function canUseInternal()
+    {
+
+        return $this->_canUseInternal;
+    }
+
+    /**
+     * Using for multiple shipping address
+     *
+     * @return bool
+     */
+    public function canUseForMultishipping()
+    {
+        return $this->_canUseForMultishipping;
+    }
+
+  	public function onOrderValidate(Mage_Sales_Model_Order_Payment $payment)
+  	{
+  	    return $this;
+  	}
+
+  	public function onInvoiceCreate(Mage_Sales_Model_Invoice_Payment $payment)
+  	{
+
+  	}
+
+  	public function getBBSTransKey()
+  	{
+      $order = Mage::getModel('sales/order');
+      $_oid = $this->getCheckout()->getLastOrderId();
+      $order->load($_oid);
+      if ($order->getStatus() == self::ORDER_STATUS) {
+
+      	$this->getCheckout()->setBBSTransactionId(uniqid());
+  	     $order->getPayment()->setAdditionalInformation(self::TRANSACTION_ID,$this->getCheckout()->getBBSTransactionId());
+
+         $transKey = $this->getApi()->
+                            setCurrencyCode($order->getBaseCurrencyCode())->
+                            setTransactionId($this->getCheckout()->getBBSTransactionId())->
+                            setAmount(sprintf("%0.0f",$order->getBaseGrandTotal()*100))->
+                            setOrderNumber($this->getCheckout()->getLastRealOrderId())->
+                            setOrderDescription($this->getProductLines($order))->
+                            setCustomerEmail($order->getCustomerEmail())->
+                            setCustomerPhoneNumber($order->getBillingAddress()->getTelephone())->
+                            setSessionId($this->getCheckout()->getQuoteId())->
+                            setInternalGUI($this->useInternalGUI())->
+                            getTransKey($this->getCheckout()->getStoreId());
+
+  	    if ($transKey == false) {
+  	    	$this->getApi()->doLog('ERROR: [NetsTransKey] Error receiving key - '.$this->getApi()->getErrorMessage(),true);
+  	    	$this->getCheckout()->addError(Mage::helper('bbsnetaxept')->__('Unable to receive transaction key from Nets: '.$this->getApi()->getErrorMessage()));
+            return false;
+  	    }
+  	    else {
+  	      $this->getCheckout()->setBBSTransKey($transKey);
+  	      if ($this->useInternalGUI()) {
+  	        $info = $this->getInfoInstance();
+  	        if (!($info instanceof Varien_Object)) {
+  	          $info = new Varien_Object($info);
+  	        }
+  	        $this->getCheckout()->setCardInfo($info);
+  	      }
+  		    $order->addStatusToHistory(self::ORDER_STATUS,Mage::helper('bbsnetaxept')->__('Redirected to Nets Payment for authorisation').' ('.$order->getBaseGrandTotal().' '.$order->getBaseCurrencyCode().')',false);
+  		    $order->save();
+  	    }
+        return $this->getCheckout()->getBBSTransKey();
+  	  }
+  	  else {
+        $this->getApi()->doLog('ERROR: [NetsTransKey] Order ('.$_oid.' - '.$order->getIncrementId().') has not correct status - '.$order->getStatus(),true);
+        return false;
+  	  }
+
+      // Should never end up here.
+      return false;
+  	}
+
+  	public function getOrderPlaceRedirectUrl()
+  	{
+        $this->getCheckout()->setNetsAllowRedirect(true);
+        return Mage::getUrl('bbsnetaxept/return/redirect', array('_secure' => true));
+  	}
+
+  	public function getBBSUrl()
+  	{
+  	  $url = 'https://';
+  		if ($this->getConfigData('test_mode')) {
+        $url .= Trollweb_BBSNetAxept_Model_WithGUI::TEST_HOST;
+  		}
+  		else {
+        $url .= Trollweb_BBSNetAxept_Model_WithGUI::PROD_HOST;
+  		}
+        if ($this->useMobile()) {
+  		    $url .= '/terminal/mobile/default.aspx';
+        }
+        else {
+            $url .= '/terminal/default.aspx';
+        }
+  		return $url;
+  	}
+
+  	public function getMerchantId()
+  	{
+      $_merchantId = ($this->useMobile() ? 'mobile_' : '').'merchant_id';
+
+  	  return $this->getConfigData($_merchantId);
+  	}
+
+  	public function getPendingTimeout()
+  	{
+  		return $this->getConfigData('pending_minutes');
+  	}
+
+  	public function useInternalGUI()
+  	{
+  	  return ($this->getConfigData('use_gui') ? false : true);
+  	}
+
+  	public function getCCDate()
+  	{
+  	  $info = $this->getInfoInstance();
+  	  return $info;
+  	}
+
+    /**
+     * Get BBS API Model
+     *
+     * @return Trollweb_BBSNetAxept_Model_Api_Bbs
+     */
+    public function getApi()
+    {
+        $bbsClient = Mage::getSingleton('bbsnetaxept/api_bbs');
+
+        $_merchantToken = ($this->useMobile() ? 'mobile_' : '').'merchant_token';
+        $_merchantTestToken = ($this->useMobile() ? 'mobile_test_token' : 'merchant_test_token');
+
+
+        // Merchant ID
+        $bbsClient->setMerchantId($this->getMerchantId())
+                  ->setLanguage($this->getConfigData('gui_language'))
+                  ->setLogactive($this->getConfigData('enable_log'));
+
+        if ($this->getConfigData('test_mode')) {
+        	$bbsClient->setHost(Trollweb_BBSNetAxept_Model_WithGUI::TEST_HOST)
+                      ->setMerchantToken($this->getConfigData($_merchantTestToken));
+        }
+        else {
+            $bbsClient->setHost(Trollweb_BBSNetAxept_Model_WithGUI::PROD_HOST)
+                      ->setMerchantToken($this->getConfigData($_merchantToken));
+              
+        }
+        return $bbsClient;
+    }
+
+    /**
+     * Check the result from the BBS NetAxept
+     *
+     * @param   none
+     * @return  bool
+     */
+    public function checkResult($bbskey) {
+        $isOK = false;
+
+        // Load order.
+		$order = Mage::getModel('sales/order');
+		$order->load($this->getCheckout()->getLastOrderId());
+
+        if ($order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
+
+          if ($this->getApi()->query($bbskey)) {
+            $_paymentMethod = $this->getApi()->Result()->getPaymentMethod();
+            if (in_array($_paymentMethod,$this->_directPaymentMethods)) {
+                // Direct payment
+                $isOK = $this->processDirectPayment($order,$bbskey);
+            }
+            elseif (in_array($_paymentMethod,$this->_giftCardMethods)) {
+                // Gift cards - handle with care.
+                if ($this->getApi()->Result()->getChildTransactionId()) {
+                    // This is a split transaction. Partly paid with giftcard
+                    // and partly with a regular card.
+                    // Run this a regular Auth
+                    $isOK = $this->processCardTransaction($order,$bbskey,true);
+                }
+                else {
+                    // Fully paid with gift card. 
+                    // Handle special
+                    $isOK = $this->processGiftCardTransaction($order,$bbskey);
+                }
+            }
+            else {
+                $isOK = $this->processCardTransaction($order,$bbskey,false);
+            }
+          }
+          else {
+            $order->addStatusToHistory($order->getStatus(),Mage::helper('bbsnetaxept')->__('Unable to get info about payment. Please contact the store.'),true)->save();
+            $this->getApi()->doLog('ERROR: Unable to get info about payment. Please contact the store.',false);
+            $this->getCheckout()->addError($this->getErrorMessage(-99));
+          }
+        }
+        else {
+            $order->addStatusToHistory($order->getStatus(),Mage::helper('bbsnetaxept')->__('Wrong order state %s',$order->getState()),true)->save();
+	      	$this->getApi()->doLog('ERROR: Wrong order state ('.$order->getState().') on #'.$order->getIncrementId().'.',false);
+	      	$this->getCheckout()->addError($this->getErrorMessage(-99));
+        }
+
+        if (!$isOK) {
+         $this->activateQuote();
+        }
+
+        return $isOK;
+    }
+
+    public function cancelledByUser()
+    {
+        $_canceled = false;
+        $order = Mage::getModel('sales/order');
+        $order->load($this->getCheckout()->getLastOrderId());
+        if ($order->getId() && ($order->getStatus() == self::ORDER_STATUS)) {
+            Mage::dispatchEvent('payment_cancel_action', array('order' => $order, 'quote' => $this->getCheckout()->setLoadInactive(true)->getQuote()));
+            $order->addStatusToHistory($order->getStatus(),Mage::helper('bbsnetaxept')->__('Payment cancelled by user'),false);
+            $order->cancel()->save();
+            $_canceled = true;
+        }
+
+        if ($_canceled) {
+            $this->getCheckout()->addError(Mage::helper('bbsnetaxept')->__('Payment cancelled by user'));
+            $this->activateQuote();
+        }
+
+        return $_canceled;
+    }
+
+    public function activateQuote()
+    {
+        $this->getCheckout()->setLoadInactive(true)->getQuote()->setIsActive(true)->save();
+    }
+
+
+    public function capture(Varien_Object $payment, $amount) {
+       $error = false;
+
+        if (in_array($payment->getAdditionalInformation(self::PAYMENTMETHOD),$this->_directPaymentMethods)) {
+            // Do not run financial transactions on directpayment.
+            return $this;
+        }
+
+        $bbs_amount = sprintf("%0.0f",$amount*100);
+        $order = $payment->getOrder();
+
+        if ($payment->getAdditionalInformation(self::IS_GIFTCARD)) {
+            // Special checks for giftcards.
+            $invoiced = sprintf("%0.0f",$order->getBaseTotalInvoiced()*100);
+            $giftcardAmount = $payment->getAdditionalInformation(self::GIFTCARD_AMOUNT);
+
+            if ($invoiced <= $giftcardAmount) {
+                // The whole giftcard amount is not invoiced
+                if ($bbs_amount <= ($giftcardAmount-$invoiced)) {
+                    // The amount that is invoiced is exactly the same
+                    // or less than the remaining giftcard amount
+                    // Don't do any capture to Nets. Just approve the amount.
+                    $payment->setTransactionId($payment->getTransactionId().'-giftcard');
+                    return $this;
+                }
+                else {
+                    // Substract the giftcard amount from
+                    // the amount that is going to be captured.
+                    $bbs_amount = $bbs_amount - ($giftcardAmount-$invoiced);
+                }
+            }
+        }
+
+        if (!$payment->getAdditionalInformation(self::TRANSACTION_ID)) {
+          if (!$payment->getBbsTransactionId()) {
+            Mage::throwException(Mage::helper('bbsnetaxept')->__('Could not find transaction id.'));
+          }
+          else {
+            $bbsTransId = $payment->getBbsTransactionId(); // Make it compatible with old fashion BBSNetterminal.
+          }
+        }
+        else {
+          $bbsTransId = $payment->getAdditionalInformation(self::TRANSACTION_ID);
+        }
+
+        
+
+        $this->_useMobile = ($payment->getAdditionalInformation(self::MOBILE_CLIENT) === true);
+
+        $InvoiceId = ($order->getIncrementId() ? $order->getIncrementId() : 'Unknown');
+
+        $this->getApi()->doLog('Sending request to capture '.$bbs_amount.' on '.$invoiceId);
+        
+        if ($this->getApi()->capture($bbsTransId,$bbs_amount,$InvoiceId) === true) {
+            $payment->setStatus(Mage_Payment_Model_Method_Abstract::STATUS_APPROVED);
+            $inc = (int)$order->hasInvoices();
+            $transId = $this->getApi()->Result()->getTransactionId();
+            $payment->setTransactionId($transId.'-'.$inc);
+        }
+        else {
+          $error = Mage::helper('bbsnetaxept')->__('Error capturing the payment: %s', $this->getApi()->getErrorMessage());
+        }
+
+        if ($error !== false) {
+            Mage::throwException($error);
+        }
+
+        return $this;
+    }
+
+   /**
+     * refund the amount with transaction id
+     *
+     * @access public
+     * @param string $payment Varien_Object object
+     * @return Mage_Payment_Model_Abstract
+     */
+    public function refund(Varien_Object $payment, $amount)
+    {
+       $error = false;
+
+        if (!$payment->getAdditionalInformation(self::TRANSACTION_ID)) {
+          if (!$payment->getBbsTransactionId()) {
+            Mage::throwException(Mage::helper('bbsnetaxept')->__('Could not find transaction id.'));
+          }
+          else {
+            $bbsTransId = $payment->getBbsTransactionId(); // Make it compatible with old fashion BBSNetterminal.
+          }
+        }
+        else {
+          $bbsTransId = $payment->getAdditionalInformation(self::TRANSACTION_ID);
+        }
+
+        $order = $payment->getOrder();
+        $this->_useMobile = ($payment->getAdditionalInformation(self::MOBILE_CLIENT) === true);
+        $InvoiceId = ($order->getIncrementId() ? $order->getIncrementId() : 'Unknown');
+
+        $bbs_amount = sprintf("%0.0f",$amount*100);
+        if ($this->getApi()->refund($bbsTransId,$bbs_amount, $InvoiceId) == $bbsTransId) {
+             $payment->setStatus(Mage_Payment_Model_Method_Abstract::STATUS_SUCCESS);
+             $inc = $order->hasCreditmemos();
+             $payment->setTransactionId($bbsTransId.'-CM'.$inc);
+
+        }
+        else {
+          $error = Mage::helper('bbsnetaxept')->__('Error refunding the payment: %s', $this->getApi()->getErrorMessage());
+        }
+
+        if ($error !== false) {
+            Mage::throwException($error);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Void payment
+     *
+     * @param   Varien_Object $invoicePayment
+     * @return  Mage_Payment_Model_Abstract
+     */
+    public function void(Varien_Object $payment)
+    {
+        $error = false;
+
+        // Void is not enabled.
+        if (!$this->getConfigData('enable_void')) {
+            return $this;
+        }
+
+        if (in_array($payment->getAdditionalInformation(self::PAYMENTMETHOD),$this->_directPaymentMethods)) {
+            // Do not run financial transactions on directpayment.
+            return $this;
+        }
+
+        if (!$payment->getAdditionalInformation(self::TRANSACTION_ID)) {
+            if (!$payment->getBbsTransactionId()) {
+                $this->getApi()->doLog(Mage::helper('bbsnetaxept')->__('Could not find transaction id.'));
+                return $this;
+            }
+            else {
+                $bbsTransId = $payment->getBbsTransactionId(); // Make it compatible with old fashion BBSNetterminal.
+            }
+        }
+        else {
+          $bbsTransId = $payment->getAdditionalInformation(self::TRANSACTION_ID);
+        }
+
+        $order = $payment->getOrder();
+        $this->_useMobile = ($payment->getAdditionalInformation(self::MOBILE_CLIENT) === true);
+        if ($order->getInvoiceCollection()->count() > 0) {
+          // Do no try to annul orders that have invoices.
+          return $this;
+        }
+
+        $InvoiceId = ($order->getIncrementId() ? $order->getIncrementId() : 'Unknown');
+
+        if ($this->getApi()->void($bbsTransId, $InvoiceId) == $bbsTransId) {
+             $payment->setStatus(self::STATUS_SUCCESS);
+        }
+        else {
+          $error = Mage::helper('bbsnetaxept')->__('Error void the payment: %s', $this->getApi()->getErrorMessage());
+        }
+
+        if ($error !== false) {
+            $this->getApi()->doLog($error);
+        //    Mage::throwException($error);
+
+        }
+
+        return $this;
+    }
+
+
+    public function getLogoMethods() {
+         $codes = array(0 => Mage::helper('bbsnetaxept')->__('Ingen logo'),
+//                        1 => Mage::helper('bbsnetaxept')->__('BBS logo'),
+                        2 => Mage::helper('bbsnetaxept')->__('Nets logo'),
+                        3 => Mage::helper('bbsnetaxept')->__('Dankort logo')
+                       );
+ 	       return $codes;
+    }
+
+    public function getLogoUrl() {
+    	$logotypes = explode(",",$this->getConfigData('logo'));
+
+        $logos = array();
+
+        foreach ($logotypes as $logotype) {
+
+        	switch($logotype) {
+        		case 1:
+        			$url = 'images/bbsnetaxept/logo.png';
+        		  break;
+        		case 2:
+        			$url = 'images/bbsnetaxept/nets-payment.png';
+        			break;
+                case 3:
+                    $url = 'images/bbsnetaxept/dancard.png';
+                    break;
+
+        		case 0:
+        		default:
+        			$url = '';
+        			break;
+        	}
+
+            if ($url) {
+                $logos[] = $url;
+            }
+        }
+
+    	return $logos;
+    }
+
+    public function getRedirectText() {
+    	return $this->getConfigData('redirect_text');
+    }
+
+    public function getProductLines($order) {
+    	$html = '<br />';
+    	foreach ($order->getAllItems() as $product) {
+    		if (!$product->getParentItemId()) {
+    		  $html .= (int)$product->getQtyOrdered().' x '.$product->getName().'<br />';
+    		}
+    	}
+    	return $html;
+    }
+
+    protected function processCardTransaction($order,$bbskey,$_giftCard)
+    {
+        $isOK = false;
+        if ($this->getApi()->auth($bbskey) == $this->getCheckout()->getBBSTransactionId()) {
+          $order->getPayment()->setAdditionalInformation(self::TRANSACTION_ID,$this->getCheckout()->getBBSTransactionId())->
+                                setAdditionalInformation(self::AUTHENTICATED_STATUS,$this->getApi()->Result()->getAuthenticatedStatus())->
+                                setAdditionalInformation(self::AUTHENTICATED_WITH,$this->getApi()->Result()->getAuthenticatedWith())->
+                                setAdditionalInformation(self::ISSUER_COUNTRY,$this->getApi()->Result()->getIssuerCountry())->
+                                setAdditionalInformation(self::ISSUER,$this->getApi()->Result()->getIssuer())->
+                                setAdditionalInformation(self::ISSUER_ID,$this->getApi()->Result()->getIssuerId())->
+                                setAdditionalInformation(self::AUTHORIZATION_ID,$this->getApi()->Result()->getAuthorizationId())->
+                                setAdditionalInformation(self::PAYMENTMETHOD,$this->getApi()->Result()->getPaymentMethod())->
+                                setAdditionalInformation(self::IS_GIFTCARD,$_giftCard)->
+                                setAdditionalInformation(self::GIFTCARD_AMOUNT,($_giftCard ? $this->getApi()->Result()->getAmountCaptured() : 0))->
+                                setAdditionalInformation(self::CHILD_TRANSACTION,$this->getApi()->Result()->getChildTransactionId())->
+                                setAdditionalInformation(self::MOBILE_CLIENT,$this->useMobile())->
+                                save();
+
+            $this->getCheckout()->getQuote()->setIsActive(false)->save();
+            $this->getCheckout()->setLastSuccessQuoteId($order->getQuoteId());
+            $order->getPayment()->setStatus(Mage_Payment_Model_Method_Abstract::STATUS_APPROVED);
+
+            $order->getPayment()->setTransactionId($this->getApi()->Result()->getAuthorizationId());
+            $order->getPayment()->setIsTransactionClosed(0);
+            $transaction = $order->getPayment()->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+
+            //Set new orderstatus
+            $newOrderStatus = $this->getConfigData('auth_order_status');
+            if (empty($newOrderStatus)) {
+              $newOrderStatus = $order->getStatus();
+            }
+            $order->addStatusToHistory($newOrderStatus,Mage::helper('bbsnetaxept')->__('Nets Authorization successful'),true);
+
+            /**
+             * send confirmation email to customer
+             */
+            if($order->getId()){
+                $order->sendNewOrderEmail();
+            }
+
+            $transaction->save();
+            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING)->save();
+            if ($this->getConfigData('payment_action') == 'sale') {
+                $invoice = $order->prepareInvoice();
+                $invoice->register()->capture();
+                Mage::getModel('core/resource_transaction')
+                      ->addObject($invoice)
+                      ->addObject($invoice->getOrder())
+                      ->save();
+            }
+            $isOK = true;
+        }
+        else {
+            if ($order->getPayment()) {
+                $order->getPayment()->setAdditionalInformation(self::AUTHENTICATED_STATUS,'Error')->setAdditionalInformation(self::AUTHENTICATED_WITH,$this->getApi()->getErrorMessage());
+            }
+            $order->addStatusToHistory($order->getStatus(),Mage::helper('bbsnetaxept')->__('Error during auth.'),false);
+            $this->getApi()->doLog('ERROR: Error during auth - '.$this->getApi()->getErrorMessage().' ('.$this->getApi()->getErrorCode().')');
+            $order->cancel()->save();
+            $this->getCheckout()->addError($this->getErrorMessage($this->getApi()->getErrorCode()).' ('.$this->getApi()->getErrorCode().') (auth)');
+        }
+
+        return $isOK;
+    }
+
+    protected function processGiftCardTransaction($order,$bbskey)
+    {
+        $isOK = false;
+        if ($this->getApi()->sale($bbskey,$order->getIncrementId()) == $this->getCheckout()->getBBSTransactionId()) {
+          $order->getPayment()->setAdditionalInformation(self::TRANSACTION_ID,$this->getCheckout()->getBBSTransactionId())->
+                                setAdditionalInformation(self::AUTHENTICATED_STATUS,$this->getApi()->Result()->getAuthenticatedStatus())->
+                                setAdditionalInformation(self::AUTHENTICATED_WITH,$this->getApi()->Result()->getAuthenticatedWith())->
+                                setAdditionalInformation(self::ISSUER_COUNTRY,$this->getApi()->Result()->getIssuerCountry())->
+                                setAdditionalInformation(self::ISSUER,$this->getApi()->Result()->getIssuer())->
+                                setAdditionalInformation(self::ISSUER_ID,$this->getApi()->Result()->getIssuerId())->
+                                setAdditionalInformation(self::AUTHORIZATION_ID,$this->getApi()->Result()->getAuthorizationId())->
+                                setAdditionalInformation(self::PAYMENTMETHOD,$this->getApi()->Result()->getPaymentMethod())->
+                                setAdditionalInformation(self::GIFTCARD_AMOUNT,$this->getApi()->Result()->getAmountCaptured())->
+                                setAdditionalInformation(self::IS_GIFTCARD,true)->
+                                setAdditionalInformation(self::CHILD_TRANSACTION,$this->getApi()->Result()->getChildTransactionId())->
+                                setAdditionalInformation(self::MOBILE_CLIENT,$this->useMobile())->
+                                save();
+
+            $this->getCheckout()->getQuote()->setIsActive(false)->save();
+            $this->getCheckout()->setLastSuccessQuoteId($order->getQuoteId());
+            $order->getPayment()->setStatus(Mage_Payment_Model_Method_Abstract::STATUS_APPROVED);
+
+            $order->getPayment()->setTransactionId($this->getApi()->Result()->getAuthorizationId());
+            $order->getPayment()->setIsTransactionClosed(0);
+            $transaction = $order->getPayment()->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+
+            //Set new orderstatus
+            $newOrderStatus = $this->getConfigData('auth_order_status');
+            if (empty($newOrderStatus)) {
+              $newOrderStatus = $order->getStatus();
+            }
+            $order->addStatusToHistory($newOrderStatus,Mage::helper('bbsnetaxept')->__('Nets Authorization successful'),true);
+
+            /**
+             * send confirmation email to customer
+             */
+            if($order->getId()){
+                $order->sendNewOrderEmail();
+            }
+
+            $transaction->save();
+            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING)->save();
+            if ($this->getConfigData('payment_action') == 'sale') {
+                $invoice = $order->prepareInvoice();
+                $invoice->register()->capture();
+                Mage::getModel('core/resource_transaction')
+                      ->addObject($invoice)
+                      ->addObject($invoice->getOrder())
+                      ->save();
+            }
+            $isOK = true;
+        }
+        else {
+            if ($order->getPayment()) {
+                $order->getPayment()->setAdditionalInformation(self::AUTHENTICATED_STATUS,'Error')->setAdditionalInformation(self::AUTHENTICATED_WITH,$this->getApi()->getErrorMessage());
+            }
+            $order->addStatusToHistory($order->getStatus(),Mage::helper('bbsnetaxept')->__('Error during sale of giftcard.'),false);
+            $this->getApi()->doLog('ERROR: Error during auth - '.$this->getApi()->getErrorMessage().' ('.$this->getApi()->getErrorCode().')');
+            $order->cancel()->save();
+            $this->getCheckout()->addError($this->getErrorMessage($this->getApi()->getErrorCode()).' ('.$this->getApi()->getErrorCode().') (auth)');
+        }
+
+        return $isOK;
+    }
+
+    // This function processes DirectPayment transactions.
+    protected function processDirectPayment($order,$bbskey)
+    {
+        $isOK = false;
+        try {
+            $order->getPayment()->
+                        setAdditionalInformation(self::TRANSACTION_ID,$this->getCheckout()->getBBSTransactionId())->
+                        setAdditionalInformation(self::AUTHENTICATED_STATUS,$this->getApi()->Result()->getAuthenticatedStatus())->
+                        setAdditionalInformation(self::AUTHENTICATED_WITH,$this->getApi()->Result()->getAuthenticatedWith())->
+                        setAdditionalInformation(self::ISSUER_COUNTRY,$this->getApi()->Result()->getIssuerCountry())->
+                        setAdditionalInformation(self::ISSUER,$this->getApi()->Result()->getIssuer())->
+                        setAdditionalInformation(self::ISSUER_ID,$this->getApi()->Result()->getIssuerId())->
+                        setAdditionalInformation(self::AUTHORIZATION_ID,$this->getApi()->Result()->getAuthorizationId())->
+                        setAdditionalInformation(self::PAYMENTMETHOD,$this->getApi()->Result()->getPaymentMethod())->
+                        setAdditionalInformation(self::MOBILE_CLIENT,$this->useMobile())->
+                        save();
+
+            $this->getCheckout()->getQuote()->setIsActive(false)->save();
+            $this->getCheckout()->setLastSuccessQuoteId($order->getQuoteId());
+            $order->getPayment()->setStatus(Mage_Payment_Model_Method_Abstract::STATUS_APPROVED);
+
+            $order->getPayment()->setTransactionId($this->getApi()->Result()->getAuthorizationId());
+            $order->getPayment()->setIsTransactionClosed(0);
+            $transaction = $order->getPayment()->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_PAYMENT);
+
+            //Set new orderstatus
+            $newOrderStatus = $this->getConfigData('auth_order_status');
+            if (empty($newOrderStatus)) {
+              $newOrderStatus = $order->getStatus();
+            }
+            $order->addStatusToHistory($newOrderStatus,Mage::helper('bbsnetaxept')->__('Directpayment successful'),true);
+
+            /**
+             * send confirmation email to customer
+             */
+            if($order->getId()){
+                $order->sendNewOrderEmail();
+            }
+
+            $transaction->save();
+            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING);
+            
+            // Directpayment does not have auth. Create an invoice.
+            $invoice = $order->prepareInvoice();
+            $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE)->register();
+            Mage::getModel('core/resource_transaction')
+                  ->addObject($invoice)
+                  ->addObject($invoice->getOrder())
+                  ->save();
+            
+            $isOK = true;        
+        } catch (Exception $e) {
+            $this->getApi()->doLog('ERROR: Error processing directpayment - '.$e->getMessage());
+        }
+
+        return $isOK;
+    }
+
+    private function getErrorMessage($errorcode=99) {
+      switch ($errorcode) {
+        case '-99':
+                    $message = Mage::helper('bbsnetaxept')->__('Unable to find correct orderstatus and payment is cancelled. Please try again.');
+                    break;
+        case '00':
+                    $message = '';
+                    break;
+        case '17':
+                    $message = Mage::helper('bbsnetaxept')->__('Payment cancelled by user.');
+                    break;
+        case '99':
+        default:
+                    $message = Mage::helper('bbsnetaxept')->__('Unable to process transaction from Nets. Try again or contact your bank');
+                    break;
+      }
+
+      return $message;
+    }
+
+    protected function useMobile()
+    {
+
+        if (!isset($this->_useMobile)) {
+            $this->_useMobile = false;
+        
+            if ($this->getCheckout()) {
+                if ($this->getCheckout()->getNetsMobile()) {
+                    $this->_useMobile = true;
+                }
+            }
+        }
+
+        return $this->_useMobile;
+    }
+    
+    public function saveConfigData() {
+        $client = new Zend_Http_Client();
+        $client->setUri('http://serial.trollweb.no/nets.php');
+    
+        $client->setConfig(array(
+            'adapter'   => 'Zend_Http_Client_Adapter_Curl',
+            'curloptions' => array(
+                CURLOPT_USERAGENT      => 'Zend_Curl_Adapter',
+                CURLOPT_HEADER         => 0,
+                CURLOPT_VERBOSE        => 0,
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_TIMEOUT        => 10,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSLVERSION      => 3,
+            ),
+        ));
+    
+        $client->setMethod(Zend_Http_Client::POST);
+    
+        $url = Mage::app()->getWebsite()->getConfig('web/unsecure/base_url');
+        $domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url));
+    
+        $storeName = Mage::app()->getStore()->getFrontendName();
+    
+        $client->setParameterPost('domain', $domain);
+        $client->setParameterPost('ip', Mage::helper('core/http')->getRemoteAddr());
+        $client->setParameterPost('merchant', $this->getConfigData('merchant_id'));
+        $client->setParameterPost('customer', $storeName);
+
+        $errorMessage = 'Unable to save NETS configuration, please try again or contact support@trollweb.no';
+        
+        try {
+            $response = $client->request();
+            
+            if ($response->getBody() != 'OK') {
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('bbsnetaxept')->__($errorMessage));
+            }
+        }
+        catch (Exception $e) {
+            $this->getApi()->doLog($e->getMessage());
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('bbsnetaxept')->__($errorMessage));
+        }
+        
+        return $this;
+    }
+
+}

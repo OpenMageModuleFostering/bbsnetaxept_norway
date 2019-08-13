@@ -32,5 +32,8 @@
     </tbody>
 </table>
 <?php endif;?>
+<?php if ($this->isMobileDevice()): ?>
+    <?php echo $this->__('Order was placed with a mobile device'); ?>
+<?php endif; ?>
 
 <?php echo $this->getChildHtml()?>

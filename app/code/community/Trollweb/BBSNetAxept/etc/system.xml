@@ -4,7 +4,7 @@
 		<payment>
 			<groups>
 				<bbsnetaxept_withgui translate="label" module="bbsnetaxept">
-					<label>BBS Netaxept, versjon 1.6.1</label>
+					<label>Nets Netaxept, versjon 2.2.0</label>
 					<sort_order>670</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
@@ -13,21 +13,20 @@
 <div class="custom-options">
 <div class="box">
 <br />
-<p class="grand-total">Opprett avtale med BBS og Teller<br /><b></b></p>
+<p class="grand-total">Opprett avtale med Nets og Teller<br /><b></b></p>
 
-For å ta i bruk BBS NetAxept må du ha en avtale med BBS og en kredittkort-innløser som Teller. 
-Klikk på linkene nedenfor for å hente opp søknadsskjemaene til BBS og Teller. 
-Disse må fylles ut så godt det lar seg gjøre og returneres til BBS og Teller. <br />
+For å ta i bruk Nets NetAxept må du ha en avtale med Nets og en kredittkort-innløser som Teller. 
+Klikk på linkene nedenfor for å hente opp søknadsskjemaene til Nets og Teller. 
+Disse må fylles ut så godt det lar seg gjøre og returneres til Nets og Teller. <br />
 <br />
-<a href="http://www.trollweb.no/link.php?id=bbs"><b>Steg 1) Klikk her for å laste ned og fylle ut avtale med BBS</b></a><br /> 
-<a href="http://www.trollweb.no/link.php?id=teller"><b>Steg 2) Klikk her for å laste ned og fylle ut avtale med Teller</b></a><br /> 
-<a href="http://www.trollweb.no/bbs/getregcode"><b>Steg 3) Klik her for å gratis generer registeringskode for ditt domene</b></a><br /> 
+<a href="http://goto.trollweb.no/bbs"><b>Steg 1) Klikk her for å laste ned og fylle ut avtale med Nets</b></a><br /> 
+<a href="http://goto.trollweb.no/teller"><b>Steg 2) Klikk her for å laste ned og fylle ut avtale med Teller</b></a><br /> 
 <br />
 Kontakt oss helt gratis om du har spørsmål til søknadsskjemaene eller kostnadene rundt løsningen.<br />
 <label>Epost <a href="mailto:support@trollweb.no"><b>support@trollweb.no</b></a></label><br />
-Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
+Telefon <b>+47 51215300</b> (0800-1600, man-fre)<br />
 <br />
-<font size=1>BBS NetAxept modulen er utviklet av <a href="http://www.trollweb.no">Trollweb Solutions AS</a> i Norge og er sertifisert og godkjent av BBS Norge. Videredistribusjon av noe slag er ikke tillatt uten etter avtale med Trollweb.</font><br />
+<font size=1>Nets NetAxept modulen er utviklet av <a href="http://www.trollweb.no">Trollweb Solutions AS</a> i Norge og er sertifisert og godkjent av Nets. Videredistribusjon av noe slag er ikke tillatt uten etter avtale med Trollweb.</font><br />
  <br />
 </div>
 </div>					
@@ -50,29 +49,76 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
-								<comment><![CDATA[Tekst som vises på BBS betalingsvalget i nettbutikken.]]></comment></title>
+								<comment><![CDATA[Tekst som vises på Nets betalingsvalget i nettbutikken.]]></comment>
+                            </title>
+<!--
+              <regcode translate="label">
+                  <label>Registreringskode</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>3</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Din registreringskode fra Trollweb. <a href="http://serial.trollweb.no/bbs">Klikk her for å generere din registreringskode helt gartis</a>.]]></comment>
+              </regcode>
+-->
 
-              <logo translate="label">
-                <label>Logo</label>
-                <frontend_type>select</frontend_type>
-                <source_model>bbsnetaxept/config_logo</source_model>
-                <sort_order>3</sort_order>
-                <show_in_default>1</show_in_default>
-                <show_in_website>1</show_in_website>
-                <show_in_store>0</show_in_store>
-                <comment><![CDATA[Logo som vises på BBS betalingsvalget i nettbutikken.]]></comment>
-              </logo>
-	
-	
-							<cctypes translate="label">
-								<label>Aktive kredittkort-typer</label>
-								<frontend_type>multiselect</frontend_type>
-								<source_model>adminhtml/system_config_source_payment_cctype</source_model>
-								<sort_order>5</sort_order>
-								<show_in_default>1</show_in_default>
-								<show_in_website>1</show_in_website>
-								<show_in_store>0</show_in_store>
-								<comment><![CDATA[Tilgjengelige korttyper på din konto. Husk at hver korttype krever avtale med BBS og kredittkortinnløser. VISA og MasterCard er vanlig for de fleste.]]></comment></cctypes>
+              <merchant_id translate="label">
+                  <label>Merchant ID</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>5</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Din unike kunde-ID fra Nets. Fås på epost av Nets.]]></comment>
+               </merchant_id>
+  
+              <merchant_token translate="label">
+                  <label>Merchant Token</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>6</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Ditt unike kunde-passord fra Nets. Fås på SMS fra Nets. Merk at Nets normalt sender både TEST og PROD passord på SMS. Her skriver du PROD passordet.]]></comment>
+              </merchant_token>
+
+              <mobile_active translate="label">
+                  <label>Aktiver Nets Mobile</label>
+                  <frontend_type>select</frontend_type>
+                  <source_model>adminhtml/system_config_source_yesno</source_model>
+                  <sort_order>7</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+              </mobile_active>
+
+              <mobile_merchant_id translate="label">
+                  <label>Merchant ID</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>8</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Din unike kunde-ID for Nets Mobile. Fås på epost av Nets.]]></comment>
+                  <depends><mobile_active>1</mobile_active></depends>
+               </mobile_merchant_id>
+  
+              <mobile_merchant_token translate="label">
+                  <label>Merchant Token</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>9</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Ditt unike kunde-passord for Nets Mobile. Fås på SMS fra Nets.]]></comment>
+                  <depends><mobile_active>1</mobile_active></depends>
+              </mobile_merchant_token>
 
               <test_mode translate="label">
                   <label>Test modus</label>
@@ -81,109 +127,146 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
                   <sort_order>10</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
-                  <show_in_store>0</show_in_store>
-                  <comment><![CDATA[Sett denne til ja for å kjøre mot BBS sitt test system.]]></comment>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Sett denne til ja for å kjøre mot Nets sitt test system.]]></comment>
               </test_mode>
-
-	            <payment_action translate="label">
-	                <label>Betalingshandling</label>
-	                <frontend_type>select</frontend_type>
-	                <source_model>bbsnetaxept/BBSNetterminal_paymentAction</source_model>
-	                <sort_order>11</sort_order>
-	                <show_in_default>1</show_in_default>
-	                <show_in_website>1</show_in_website>
-	                <show_in_store>0</show_in_store>
-	                <comment><![CDATA[Authorize Only (standard) reserverer først beløpet på kundens kort. Man må deretter kjøre Capture (trekke beløpet) i ordrebehandlingen i Magento når ordren sendes. Det er ikke lov å trekke penger fra kortet før varene sendes. Kunder som selger for eksempel digitale produkter som kunden mottar umiddelbart kan bruke Authorize + Capture.]]></comment>
-	            </payment_action>
-	            
-	
-	            <merchant_id translate="label">
-	                <label>Merchant ID</label>
-	                <frontend_type>text</frontend_type>
-	                <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-	                <sort_order>12</sort_order>
-	                <show_in_default>1</show_in_default>
-	                <show_in_website>1</show_in_website>
-	                <show_in_store>0</show_in_store>
-	                <comment><![CDATA[Din unike kunde-ID fra BBS. Fås på epost av BBS.]]></comment>
-	             </merchant_id>
-	
-				      <merchant_token translate="label">
-				          <label>Merchant Token</label>
-				          <frontend_type>text</frontend_type>
-				          <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-				          <sort_order>13</sort_order>
-				          <show_in_default>1</show_in_default>
-				          <show_in_website>1</show_in_website>
-				          <show_in_store>0</show_in_store>
-				          <comment><![CDATA[Ditt unike kunde-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Her skal skrive inn PROD passordet.]]></comment>
-				      </merchant_token>
 
               <merchant_test_token translate="label">
                   <label>Merchant Test Token</label>
                   <frontend_type>text</frontend_type>
                   <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>11</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Ditt unike test-passord fra Nets. Fås på SMS fra Nets. Merk at Nets normalt sender både TEST og PROD passord på SMS. Her skriver du TEST passordet.]]></comment>
+                  <depends><test_mode>1</test_mode></depends>
+              </merchant_test_token>
+
+              <mobile_test_token translate="label">
+                  <label>Mobile Test Token</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>12</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Ditt unike test-passord for Nets Mobile.]]></comment>
+                  <depends><test_mode>1</test_mode><mobile_active>1</mobile_active></depends>
+              </mobile_test_token>              
+
+              <max_amount translate="label">
+                  <label>Min amount</label>
+                  <frontend_type>select</frontend_type>
+                  <source_model>adminhtml/system_config_source_yesno</source_model>
                   <sort_order>14</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
-                  <show_in_store>0</show_in_store>
-                  <comment><![CDATA[Ditt unike test-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Du skal skrive inn TEST passordet.]]></comment>
-              </merchant_test_token>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[]]></comment>
+              </max_amount>
 
-	
+              <max_amount_value translate="label">
+                  <label>Min amount limit</label>
+                  <frontend_type>text</frontend_type>
+                  <sort_order>15</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Alla ordrar över detta värde kommer ej visa NETS-modulen i checkout]]></comment>
+                  <depends>
+                      <max_amount>1</max_amount>
+                  </depends>
+              </max_amount_value>
+
+              <logo translate="label">
+                <label>Logo</label>
+                <frontend_type>multiselect</frontend_type>
+                <source_model>bbsnetaxept/config_logo</source_model>
+                <sort_order>16</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <comment><![CDATA[Logo som vises på Nets betalingsvalget i nettbutikken.]]></comment>
+              </logo>
+
+	            <payment_action translate="label">
+	                <label>Betalingshandling</label>
+	                <frontend_type>select</frontend_type>
+	                <source_model>bbsnetaxept/BBSNetterminal_paymentAction</source_model>
+	                <sort_order>20</sort_order>
+	                <show_in_default>1</show_in_default>
+	                <show_in_website>1</show_in_website>
+	                <show_in_store>1</show_in_store>
+	                <tooltip><![CDATA[Authorize Only (standard) reserverer først beløpet på kundens kort. Man må deretter kjøre Capture (trekke beløpet) i ordrebehandlingen i Magento når ordren sendes. Det er ikke lov å trekke penger fra kortet før varene sendes. Kunder som selger for eksempel digitale produkter som kunden mottar umiddelbart kan bruke Authorize + Capture.]]></tooltip>
+	            </payment_action>
+	            
+<!-- 	
 				      <use_gui translate="label">
-				          <label>Bruke BBS sin betalingsside</label>
+				          <label>Bruke Nets sin betalingsside</label>
 				          <frontend_type>select</frontend_type>
 				          <source_model>adminhtml/system_config_source_yesno</source_model>
-				          <sort_order>15</sort_order>
+				          <sort_order>21</sort_order>
 				          <show_in_default>1</show_in_default>
 				          <show_in_website>1</show_in_website>
-				          <show_in_store>0</show_in_store>
-				          <comment><![CDATA[Skal normalt ikke endres. Husk at du kan laste opp egen logo på betalingssiden gjennom kontrollpanelet til BBS (https://epayment.bbs.no/). Dersom du velger å ikke bruke BBS GUI så krever dette en PCI sertifisering av nettbutikken din.]]></comment>
+				          <show_in_store>1</show_in_store>
+				          <tooltip><![CDATA[Skal normalt ikke endres. Husk at du kan laste opp egen logo på betalingssiden gjennom kontrollpanelet til Nets (https://epayment.bbs.no/). Dersom du velger å ikke bruke Nets GUI så krever dette en PCI sertifisering av nettbutikken din.]]></tooltip>
 		          </use_gui>
-				
+-->
+              <cctypes translate="label">
+                <label>Aktive kredittkort-typer</label>
+                <frontend_type>multiselect</frontend_type>
+                <source_model>adminhtml/system_config_source_payment_cctype</source_model>
+                <sort_order>22</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <comment><![CDATA[Tilgjengelige korttyper på din konto. Husk at hver korttype krever avtale med Nets og kredittkortinnløser. VISA og MasterCard er vanlig for de fleste.]]></comment>
+                <depends><use_gui>0</use_gui></depends>
+              </cctypes>
 				
 				     <gui_language translate="label">
-				          <label>Språk på BBS betalingssiden</label>
+				          <label>Språk på Nets betalingssiden</label>
 				          <frontend_type>select</frontend_type>
 				          <source_model>bbsnetaxept/BBSNetterminal_language</source_model>
-				          <sort_order>16</sort_order>
+				          <sort_order>23</sort_order>
 				          <show_in_default>1</show_in_default>
 				          <show_in_website>1</show_in_website>
-				          <show_in_store>0</show_in_store>
-	    			      <comment><![CDATA[Velg språket du ønsker at BBS skal vise på selve betalingssiden.]]></comment>
+				          <show_in_store>1</show_in_store>
+	    			      <comment><![CDATA[Velg språket du ønsker at Nets skal vise på selve betalingssiden.]]></comment>
 	    			  </gui_language>
+	    			  
+	    			  <singlepage>
+                <label>Bruk "Singlepage"</label>
+                <frontend_type>select</frontend_type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <sort_order>24</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <comment><![CDATA[Bruk en enkel side på Nets.]]></comment>
+	    			  </singlepage>
+	    			  
 
              <redirect_text translate="label">
                   <label>Utvidet infotekst</label>
                   <frontend_type>textarea</frontend_type>
-                  <sort_order>17</sort_order>
+                  <sort_order>30</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
                   <show_in_store>1</show_in_store>
-                  <comment><![CDATA[Meldingstekst som kunden ser når han eller hun velger betalingsalternativet BBS.]]></comment>
+                  <comment><![CDATA[Meldingstekst som kunden ser når han eller hun velger betalingsalternativet Nets.]]></comment>
               </redirect_text>
 
              <pending_minutes translate="label">
                   <label>Betalings avbrudd</label>
                   <frontend_type>text</frontend_type>
-                  <sort_order>20</sort_order>
+                  <sort_order>31</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>0</show_in_website>
                   <show_in_store>0</show_in_store>
-                  <comment><![CDATA[Antall minutter før en ordre automatisk blir merket som avbrutt dersom kunden ikke har kommet tilbake fra BBS betalings siden. Skriv 0 for aldri å automatisk avbryte en ordre.]]></comment>
+                  <comment><![CDATA[Antall minutter før en ordre automatisk blir merket som avbrutt dersom kunden ikke har kommet tilbake fra Nets betalings siden. Skriv 0 for aldri å automatisk avbryte en ordre.]]></comment>
               </pending_minutes>
-
-             <regcode translate="label">
-                  <label>Registreringskode</label>
-                  <frontend_type>text</frontend_type>
-                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                  <sort_order>30</sort_order>
-                  <show_in_default>1</show_in_default>
-                  <show_in_website>1</show_in_website>
-                  <show_in_store>0</show_in_store>
-                  <comment><![CDATA[Din registreringskode fra Trollweb. <a href="http://www.trollweb.no/bbs/getregcode">Klikk her for å generere din registreringskode helt gartis</a>.]]></comment>
-              </regcode>
 
 <!--  							
 							<order_status translate="label">
@@ -204,14 +287,25 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
                   <sort_order>40</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
-                  <show_in_store>0</show_in_store>
-                  <comment><![CDATA[Velg ønsket ordrestatus på ordrer som har blitt authentisert og godkjent hos BBS. Ordrer får normalt Venter/Pending før de er betalt. Ordrestatus som settes her er den de får når betalingen er bekreftet.]]></comment>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Velg ønsket ordrestatus på ordrer som har blitt authentisert og godkjent hos Nets. Ordrer får normalt Venter/Pending før de er betalt. Ordrestatus som settes her er den de får når betalingen er bekreftet.]]></comment>
               </auth_order_status>
                      
+                <enable_void translate="label">
+                    <label>Fjern autorisasjon når ordre avbrytes</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>45</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>                    
+                    <comment><![CDATA[OBS! Dersom dette blir aktivert vil autorisasjonen bli fjernet dersom du endrer ordrer.]]></comment>
+                </enable_void>
+
               <allowspecific translate="label">
-                  <label>Tillatt enkelt-land som kan bruke BBS</label>
+                  <label>Tillatt enkelt-land som kan bruke Nets</label>
                   <frontend_type>allowspecific</frontend_type>
-                  <sort_order>41</sort_order>
+                  <sort_order>80</sort_order>
                   <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
@@ -219,14 +313,15 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
               </allowspecific>
                
               <specificcountry translate="label">
-                  <label>Spesifiser hvilke land som eventuelt kan bruke BBS</label>
+                  <label>Spesifiser hvilke land som kan bruke Nets</label>
                   <frontend_type>multiselect</frontend_type>
-                  <sort_order>42</sort_order>
+                  <sort_order>81</sort_order>
                   <source_model>adminhtml/system_config_source_country</source_model>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
                   <show_in_store>1</show_in_store>
                   <comment><![CDATA[Velg utvalgte land som får lov å velge denne betalingsmetoden. Standard er alle land.]]></comment>
+                  <depends><allowspecific>1</allowspecific></depends>
               </specificcountry>
 
               <enable_log translate="label">
@@ -245,9 +340,20 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
                   <sort_order>100</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
-                  <show_in_store>0</show_in_store>
+                  <show_in_store>1</show_in_store>
                   <comment><![CDATA[Ønsket sortering i Betalingsmetoder-feltet på utsjekkingssiden i nettbutikken. Aktuelt dersom du tilbyr flere betalingsalternativer og ønsker å plassere BBS betalingsvalget i en angitt rekkefølge.]]></comment>
               </sort_order>
+              
+              <alternate_redirect>
+                  <label>Alternativ retur URL</label>
+                  <frontend_type>text</frontend_type>
+                  <sort_order>101</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[OBS!! Ikke gjør endringer i dette feltet uten at du er 100% sikker på hva du gjør]]></comment>
+              </alternate_redirect>
+              
             </fields>
           </bbsnetaxept_withgui>
        </groups>

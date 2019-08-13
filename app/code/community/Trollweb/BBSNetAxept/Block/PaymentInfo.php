@@ -30,6 +30,11 @@ class Trollweb_BBSNetAxept_Block_PaymentInfo extends Mage_Payment_Block_Info
       return $this->getMethod()->getLogoUrl();
     }
 	
+    public function isMobileDevice()
+    {
+        return $this->getInfo()->getAdditionalInformation(Trollweb_BBSNetAxept_Model_WithGUI::MOBILE_CLIENT);
+    }
+
     protected function _prepareSpecificInformation($transport = null)
     {
         $transport = parent::_prepareSpecificInformation($transport);

@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/BBSNetAxept_Norway",
     "type": "magento-module",
-    "license": "GPL-License",
+    "license": "MIT",
     "homepage": "",
-    "description": "Payment gateway for BBS Netaxept. Let your customers pay safely by creditcard and BankAxess/BankID. Module certified by BBS.",
+    "description": "Nets Netaxept modul for Magento. Sertifisert og godkjent av Nets.",
     "authors": [
     {
-        "name": "Trollweb Solutions AS",
-        "email": "post@trollweb.no"
+        "name": "Roy Andre Tollefsen",
+        "email": "royandre@trollweb.no"
     }
 ],
     "suggest": {
