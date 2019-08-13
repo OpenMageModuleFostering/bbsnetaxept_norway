@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Trollweb_BBSNetAxept>
-    	    <version>1.5.0</version>
+    	    <version>1.5.1</version>
         	<depends>
         		<Mage_Payment />
         	</depends>
@@ -87,8 +87,8 @@
             	<active>0</active>
                 <title>Kredittkort</title>
                 <cctypes>AE,VI,MC,DI</cctypes>
-                <gw_url>https://epayment-test.bbs.no/terminal/default.aspx</gw_url>
-                <wsdl_url>https://epayment-test.bbs.no/service.svc?wsdl</wsdl_url>
+                <gw_url>https://epayment.bbs.no/terminal/default.aspx</gw_url>
+                <wsdl_url>https://epayment.bbs.no/service.svc?wsdl</wsdl_url>
                 <merchant_id backend_model="adminhtml/system_config_backend_encrypted" />
                 <merchant_token backend_model="adminhtml/system_config_backend_encrypted" />
                 <use_gui>1</use_gui>
@@ -100,7 +100,7 @@
                 <payment_action>auth</payment_action>
                 <regcode backend_model="adminhtml/system_config_backend_encrypted" />
                 <logo>0</logo>
-                <redirect_text>You will be redirected to BBS website when you place an order.</redirect_text>
+                <redirect_text>Du vil bli sendt til en sikker side hos BBS for inntasting av kredittkort-detaljene dine når du har fullført bestillingen.</redirect_text>
                 
                 <model>bbsnetaxept/withGUI</model>
             </bbsnetaxept_withgui>
