@@ -19,4 +19,13 @@
 
 class Trollweb_BBSNetAxept_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
 {
+  function doTWregister() {
+    // Register with Trollweb
+    $domain = $_SERVER['SERVER_NAME'];
+    $fh = @fopen("http://www.trollweb.no/mod_register.php?do=register&type=bbs&domain=".$domain,"r");
+    if ($fh)
+      fclose($fh);
+    
+    return true;
+  }
 }

@@ -29,5 +29,7 @@ $installer->addAttribute('order_payment', 'bbs_issuer_country', array());
 $installer->addAttribute('order_payment', 'bbs_issuer_id', array());
 $installer->addAttribute('order_payment', 'bbs_authorization_id', array());
 $installer->addAttribute('order_payment', 'bbs_session_number', array());
+    
+$installer->doTWregister();
 
 $installer->endSetup();

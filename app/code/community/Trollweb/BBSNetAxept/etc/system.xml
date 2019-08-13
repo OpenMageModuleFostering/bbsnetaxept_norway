@@ -4,7 +4,7 @@
 		<payment>
 			<groups>
 				<bbsnetaxept_withgui translate="label" module="bbsnetaxept">
-					<label>BBS NetAxept Norge, versjon 1.3.2</label>
+					<label>BBS NetAxept Norge, versjon 1.4.1</label>
 					<sort_order>670</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
