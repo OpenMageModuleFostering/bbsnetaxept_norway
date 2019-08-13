@@ -17,17 +17,20 @@
  * 
  */
 
-class Trollweb_BBSNetAxept_Block_PaymentInfo extends Mage_Payment_Block_Info
+
+/**
+* Our test CC module adapter
+*/
+class Trollweb_BBSNetAxept_Model_Config_Logo
 {
-
-    protected function _construct()
+    public function toOptionArray()
     {
-        parent::_construct();
-        $this->setTemplate('bbsnetaxept/paymentinfo.phtml');
-    }
-
-    protected function getLogo()
-    {
-    	return $this->getMethod()->getLogoUrl();
+      $standard = Mage::getModel('bbsnetaxept/withGUI');
+        
+      $arr = array();
+      foreach ($standard->getLogoMethods() as $k=>$v) {
+          $arr[] = array('value'=>$k, 'label'=>$v);
+      }
+      return $arr;
     }
 }

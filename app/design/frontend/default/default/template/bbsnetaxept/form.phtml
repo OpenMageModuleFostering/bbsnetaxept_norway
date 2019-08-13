@@ -16,12 +16,18 @@
  * @license    Single-site License
  * 
  */
+
+$logoUrl = $this->getLogo();
 ?>
 <fieldset class="form-list">
     <?php $_code=$this->getMethodCode() ?>
     <ul id="payment_form_<?php echo $_code ?>" style="display:none">
         <li>
-            <?php echo $this->__('You will be redirected to BBS website when you place an order.') ?>
+            <?php if (!empty($logoUrl)): ?>
+              <img id="bbs_logo_<?php echo $_code; ?>" src="<?php echo $this->getSkinUrl($logoUrl); ?>" align="left" />
+              <br />
+            <?php endif;?>
+            <?php echo $this->getRedirectText(); ?>
         </li>
     </ul>
 </fieldset>

@@ -4,7 +4,7 @@
 		<payment>
 			<groups>
 				<bbsnetaxept_withgui translate="label" module="bbsnetaxept">
-					<label>BBS NetAxept Norge, versjon 1.4.1</label>
+					<label>BBS Netaxept, versjon 1.5.0</label>
 					<sort_order>670</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
@@ -21,6 +21,7 @@ Disse må fylles ut så godt det lar seg gjøre og returneres til BBS og Teller.
 <br />
 <a href="http://www.trollweb.no/link.php?id=bbs"><b>Steg 1) Klikk her for å laste ned og fylle ut avtale med BBS</b></a><br /> 
 <a href="http://www.trollweb.no/link.php?id=teller"><b>Steg 2) Klikk her for å laste ned og fylle ut avtale med Teller</b></a><br /> 
+<a href="http://www.trollweb.no/bbs/getregcode"><b>Steg 3) Klik her for å gratis generer registeringskode for ditt domene</b></a><br /> 
 <br />
 Kontakt oss helt gratis om du har spørsmål til søknadsskjemaene eller kostnadene rundt løsningen.<br />
 <label>Epost <a href="mailto:support@trollweb.no"><b>support@trollweb.no</b></a></label><br />
@@ -32,152 +33,201 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 </div>					
 ]]></comment>
 					<fields>
-						<active translate="label">
-							<label>Aktiv</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>1</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>0</show_in_store>
-						</active>
+							<active translate="label">
+								<label>Aktiv</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>1</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>0</show_in_store>
+							</active>
+	
+							<title translate="label">
+								<label>Tittel</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>2</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>0</show_in_store>
+								<comment><![CDATA[Tekst som vises på BBS betalingsvalget i nettbutikken.]]></comment></title>
 
-						<title translate="label">
-							<label>Tittel</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>2</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>0</show_in_store>
-							<comment><![CDATA[Tekst som vises for betalingsalternativet for BBS NetAxept.<a href="https://payments.amazon.com/sdui/sdui/business?sn=paynow/o" target="_blank"></a>]]></comment></title>
-
-
-						<cctypes translate="label">
-							<label>Kredittkort typer</label>
-							<frontend_type>multiselect</frontend_type>
-							<source_model>adminhtml/system_config_source_payment_cctype</source_model>
-							<sort_order>5</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>0</show_in_store>
-							<comment><![CDATA[Tilgjengelige korttyper. Husk at hver korttype krever avtale med BBS og kredittkortinnløser. VISA og MasterCard er vanlig for de fleste.]]></comment></cctypes>
-
-						<gw_url translate="label">
-							<label>Gateway</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>9</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>0</show_in_store>
-							<comment><![CDATA[Skal ikke endres i produksjon.]]></comment>
-						</gw_url>   
-
-            <wsdl_url translate="label">
-                <label>WSDL</label>
-                <frontend_type>text</frontend_type>
-                <sort_order>10</sort_order>
-                <show_in_default>1</show_in_default>
-                <show_in_website>1</show_in_website>
-                <show_in_store>0</show_in_store>
-                <comment><![CDATA[Skal ikke endres i produksjon.]]></comment>
-            </wsdl_url>
-            
-            <payment_action translate="label">
-                <label>Betalingshandling</label>
+              <logo translate="label">
+                <label>Logo</label>
                 <frontend_type>select</frontend_type>
-                <source_model>bbsnetaxept/BBSNetterminal_paymentAction</source_model>
-                <sort_order>11</sort_order>
+                <source_model>bbsnetaxept/config_logo</source_model>
+                <sort_order>3</sort_order>
                 <show_in_default>1</show_in_default>
                 <show_in_website>1</show_in_website>
                 <show_in_store>0</show_in_store>
-                <comment><![CDATA[Authorize Only (standard) reserverer først beløpet på kundens kort. Man må deretter kjøre Capture (trekke beløpet) i ordrebehandlingen i Magento når ordren sendes. Det er ikke lov å trekke penger fra kortet før varene sendes. Kunder som selger for eksempel digitale produkter som kunden får med en gang kan bruke Authorize + Capture.]]></comment>
-            </payment_action>
-            
+                <comment><![CDATA[Logo som vises på BBS betalingsvalget i nettbutikken.]]></comment>
+              </logo>
+	
+	
+							<cctypes translate="label">
+								<label>Aktive kredittkort-typer</label>
+								<frontend_type>multiselect</frontend_type>
+								<source_model>adminhtml/system_config_source_payment_cctype</source_model>
+								<sort_order>5</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>0</show_in_store>
+								<comment><![CDATA[Tilgjengelige korttyper på din konto. Husk at hver korttype krever avtale med BBS og kredittkortinnløser. VISA og MasterCard er vanlig for de fleste.]]></comment></cctypes>
+	
+							<gw_url translate="label">
+								<label>Gateway</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>0</show_in_store>
+								<comment><![CDATA[Skal normalt ikke endres. Endre https://epayment.bbs.no/ til https://epayment-test.bbs.no/ for å kjøre test modus (krever TEST merchant passord).]]></comment>
+							</gw_url>   
+	
+	            <wsdl_url translate="label">
+	                <label>WSDL</label>
+	                <frontend_type>text</frontend_type>
+	                <sort_order>10</sort_order>
+	                <show_in_default>1</show_in_default>
+	                <show_in_website>1</show_in_website>
+	                <show_in_store>0</show_in_store>
+	                <comment><![CDATA[Skal normalt ikke endres. Endre https://epayment.bbs.no/ til https://epayment-test.bbs.no/ for å kjøre test modus (krever TEST merchant passord).]]></comment>
+	            </wsdl_url>
+	            
+	            <payment_action translate="label">
+	                <label>Betalingshandling</label>
+	                <frontend_type>select</frontend_type>
+	                <source_model>bbsnetaxept/BBSNetterminal_paymentAction</source_model>
+	                <sort_order>11</sort_order>
+	                <show_in_default>1</show_in_default>
+	                <show_in_website>1</show_in_website>
+	                <show_in_store>0</show_in_store>
+	                <comment><![CDATA[Authorize Only (standard) reserverer først beløpet på kundens kort. Man må deretter kjøre Capture (trekke beløpet) i ordrebehandlingen i Magento når ordren sendes. Det er ikke lov å trekke penger fra kortet før varene sendes. Kunder som selger for eksempel digitale produkter som kunden mottar umiddelbart kan bruke Authorize + Capture.]]></comment>
+	            </payment_action>
+	            
+	
+	            <merchant_id translate="label">
+	                <label>Merchant ID</label>
+	                <frontend_type>text</frontend_type>
+	                <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+	                <sort_order>12</sort_order>
+	                <show_in_default>1</show_in_default>
+	                <show_in_website>1</show_in_website>
+	                <show_in_store>0</show_in_store>
+	                <comment><![CDATA[Din unike kunde-ID fra BBS. Fås på epost av BBS.]]></comment>
+	             </merchant_id>
+	
+				      <merchant_token translate="label">
+				          <label>Merchant Token</label>
+				          <frontend_type>text</frontend_type>
+				          <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+				          <sort_order>13</sort_order>
+				          <show_in_default>1</show_in_default>
+				          <show_in_website>1</show_in_website>
+				          <show_in_store>0</show_in_store>
+				          <comment><![CDATA[Ditt unike kunde-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Du skal skrive inn PROD passordet såfremt du ikke ønsker å kjøre test.]]></comment>
+				      </merchant_token>
+	
+				      <use_gui translate="label">
+				          <label>Bruke BBS sin betalingsside</label>
+				          <frontend_type>select</frontend_type>
+				          <source_model>adminhtml/system_config_source_yesno</source_model>
+				          <sort_order>14</sort_order>
+				          <show_in_default>1</show_in_default>
+				          <show_in_website>1</show_in_website>
+				          <show_in_store>0</show_in_store>
+				          <comment><![CDATA[Skal normalt ikke endres. Husk at du kan laste opp egen logo på betalingssiden gjennom kontrollpanelet til BBS (https://epayment.bbs.no/). Dersom du velger å ikke bruke BBS GUI så krever dette en PCI sertifisering av nettbutikken din.]]></comment>
+		          </use_gui>
+				
+				
+				     <gui_language translate="label">
+				          <label>Språk på BBS betalingssiden</label>
+				          <frontend_type>select</frontend_type>
+				          <source_model>bbsnetaxept/BBSNetterminal_language</source_model>
+				          <sort_order>15</sort_order>
+				          <show_in_default>1</show_in_default>
+				          <show_in_website>1</show_in_website>
+				          <show_in_store>0</show_in_store>
+	    			      <comment><![CDATA[Velg språket du ønsker at BBS skal vise på selve betalingssiden.]]></comment>
+	    			  </gui_language>
 
-                     <merchant_id translate="label">
-                         <label>Merchant ID</label>
-                         <frontend_type>text</frontend_type>
-                         <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                         <sort_order>12</sort_order>
-                         <show_in_default>1</show_in_default>
-                         <show_in_website>1</show_in_website>
-                         <show_in_store>0</show_in_store>
-                         <comment><![CDATA[Din unike kunde-ID fra BBS. Fås på epost av BBS.]]></comment></merchant_id>
+             <redirect_text translate="label">
+                  <label>Utvidet infotekst</label>
+                  <frontend_type>textarea</frontend_type>
+                  <sort_order>17</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Meldingstekst som kunden ser når han eller hun velger betalingsalternativet BBS.]]></comment>
+              </redirect_text>
 
-                     <merchant_token translate="label">
-                         <label>Merchant Token</label>
-                         <frontend_type>text</frontend_type>
-                         <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                         <sort_order>13</sort_order>
-                         <show_in_default>1</show_in_default>
-                         <show_in_website>1</show_in_website>
-                         <show_in_store>0</show_in_store>
-                         <comment><![CDATA[Ditt unike kunde-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Du skal skrive inn PROD passord.]]></comment></merchant_token>
+             <regcode translate="label">
+                  <label>Registreringskode</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>18</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>0</show_in_website>
+                  <show_in_store>0</show_in_store>
+                  <comment><![CDATA[Din registreringskode fra Trollweb. <a href="http://www.trollweb.no/bbs/getregcode">Klikk her for å generere din registreringskode helt gartis</a>.]]></comment>
+              </regcode>
 
-                     <use_gui translate="label">
-                         <label>Use BBS GUI</label>
-                         <frontend_type>select</frontend_type>
-                         <source_model>adminhtml/system_config_source_yesno</source_model>
-                         <sort_order>14</sort_order>
-                         <show_in_default>1</show_in_default>
-                         <show_in_website>1</show_in_website>
-                         <show_in_store>0</show_in_store>
-                         <comment><![CDATA[OBS! Dersom du velger å ikke bruke BBS GUI så krever dette en PCI sertifisering av nettbutikken din.]]></comment>
-                         </use_gui>
-
-
-                    <gui_language translate="label">
-                         <label>BBS GUI Language</label>
-                         <frontend_type>select</frontend_type>
-                         <source_model>bbsnetaxept/BBSNetterminal_language</source_model>
-                         <sort_order>15</sort_order>
-                         <show_in_default>1</show_in_default>
-                         <show_in_website>1</show_in_website>
-                         <show_in_store>0</show_in_store>
-                     <comment><![CDATA[Velg språket du ønsker at BBS skal vise.]]></comment></gui_language>
-			
-			<order_status translate="label">
-			    <label>New order status</label>
-			    <frontend_type>select</frontend_type>
-			    <source_model>adminhtml/system_config_source_order_status</source_model>
-			    <sort_order>20</sort_order>
-			    <show_in_default>1</show_in_default>
-			    <show_in_website>1</show_in_website>
-			    <show_in_store>0</show_in_store>
-			    <comment><![CDATA[Velg ønsket ordrestatus på ordrer som velger denne betalingsmåten. Behøver ikke endres.]]></comment></order_status>
+<!--  							
+							<order_status translate="label">
+							    <label>New order status</label>
+							    <frontend_type>select</frontend_type>
+							    <source_model>adminhtml/system_config_source_order_status</source_model>
+							    <sort_order>20</sort_order>
+							    <show_in_default>1</show_in_default>
+							    <show_in_website>1</show_in_website>
+							    <show_in_store>0</show_in_store>
+							    <comment><![CDATA[Velg ønsket ordrestatus på ordrer som velger denne betalingsmåten. Behøver ikke endres.]]></comment>
+							</order_status>
+-->
+              <auth_order_status translate="label">
+                  <label>Ordrestatus på autoriserte ordrer</label>
+                  <frontend_type>select</frontend_type>
+                  <source_model>adminhtml/system_config_source_order_status</source_model>
+                  <sort_order>20</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>0</show_in_store>
+                  <comment><![CDATA[Velg ønsket ordrestatus på ordrer som har blitt authentisert og godkjent hos BBS. Ordrer får normalt Venter/Pending før de er betalt. Ordrestatus som settes her er den de får når betalingen er bekreftet.]]></comment>
+              </auth_order_status>
                      
-                <allowspecific translate="label">
-                    <label>Payment from applicable countries</label>
-                    <frontend_type>allowspecific</frontend_type>
-                    <sort_order>21</sort_order>
-                    <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </allowspecific>
+              <allowspecific translate="label">
+                  <label>Tillatt enkelt-land som kan bruke BBS</label>
+                  <frontend_type>allowspecific</frontend_type>
+                  <sort_order>21</sort_order>
+                  <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+              </allowspecific>
                
-                <specificcountry translate="label">
-                    <label>Payment from Specific countries</label>
-                    <frontend_type>multiselect</frontend_type>
-                    <sort_order>22</sort_order>
-                    <source_model>adminhtml/system_config_source_country</source_model>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <comment><![CDATA[Velg utvalgte land som får lov å velge denne betalingsmetoden. Standard er alle land.]]></comment>
-                </specificcountry>
+              <specificcountry translate="label">
+                  <label>Spesifiser hvilke land som eventuelt kan bruke BBS</label>
+                  <frontend_type>multiselect</frontend_type>
+                  <sort_order>22</sort_order>
+                  <source_model>adminhtml/system_config_source_country</source_model>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <comment><![CDATA[Velg utvalgte land som får lov å velge denne betalingsmetoden. Standard er alle land.]]></comment>
+              </specificcountry>
                            
-                  <sort_order translate="label">
-                      <label>Sort order</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>100</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>0</show_in_store>
-                      <comment><![CDATA[Ønsket sortering i Betalingsmetoder-feltet på utsjekkingssiden i nettbutikken dersom du tilbyr flere betalingsalternativer.]]></comment></sort_order>
-                   </fields>
-                </bbsnetaxept_withgui>
-            </groups>
-        </payment>
-    </sections>
+              <sort_order translate="label">
+                  <label>Sortering av betalingsmetode</label>
+                  <frontend_type>text</frontend_type>
+                  <sort_order>100</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>0</show_in_store>
+                  <comment><![CDATA[Ønsket sortering i Betalingsmetoder-feltet på utsjekkingssiden i nettbutikken. Aktuelt dersom du tilbyr flere betalingsalternativer og ønsker å plassere BBS betalingsvalget i en angitt rekkefølge.]]></comment>
+              </sort_order>
+            </fields>
+          </bbsnetaxept_withgui>
+       </groups>
+    </payment>
+  </sections>
 </config>

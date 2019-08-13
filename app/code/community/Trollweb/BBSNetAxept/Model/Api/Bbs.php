@@ -288,6 +288,14 @@ object(stdClass)[850]
      return $this->_result;
    }   
    
+   public function validate() {
+   	$regcode = $this->getRegCode();
+   	$carray = explode(".",$_SERVER[base64_decode('U0VSVkVSX05BTUU=')]);
+        $d = strtolower($carray[count($carray)-2]);
+
+   	return ($this->magic(${base64_decode("ZA==")},$regcode,$d) == ${base64_decode('cmVnY29kZQ==')});
+   }
+   
    private function getRequest() {
      
      // Set default norwegian language
@@ -312,6 +320,18 @@ object(stdClass)[850]
     
     return $request;
        
+   }
+   
+   private function magic($secret,$regcode,$domain) {
+      if ($secret == false) {
+      	$secret = $_SERVER[base64_decode('VU5JUVVFX0lE')];
+      }
+      $key = $secret.$regcode.$domain;
+      $offset = 0;
+      $privkey = rand(1,strlen($domain));
+      $offset = (strlen($key)*32)-(strlen($key)*64)+$privkey-$offset+(strlen($key)*32);
+      $f = base64_decode("bWQ1");
+      return $f(base64_encode(strtolower(substr($secret,0,strlen($domain) % $offset).substr($domain,(strlen($secret) % $offset))).base64_decode("dHJvbGx3ZWJfYmJz")));
    }
 }
 

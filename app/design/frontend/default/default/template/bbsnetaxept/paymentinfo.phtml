@@ -16,5 +16,12 @@
  * @license    Single-site License
  * 
  */
+$logoUrl = $this->getLogo();
 ?>
-<p><?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?></p>
+<p>
+<?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?>
+<?php if (!empty($logoUrl)): ?>
+  <br />
+  <img alt="logo" src="<?php echo $this->getSkinUrl($logoUrl); ?>" />
+<?php endif;?>
+</p>

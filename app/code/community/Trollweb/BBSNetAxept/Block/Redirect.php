@@ -23,13 +23,16 @@ class Trollweb_BBSNetAxept_Block_Redirect extends Mage_Core_Block_Abstract
     {
 
         $standard = Mage::getModel('bbsnetaxept/withGUI');
-
+        
+        $bbsTransKey = $standard->getBBSTransKey();
+        
         $form = new Varien_Data_Form();
         $form->setAction($standard->getBBSUrl())
             ->setId('BBS_WithGUI_checkout')
             ->setName('BBS_WithGUI_checkout')
             ->setMethod('POST')
             ->setUseContainer(true);
+
             
         if ($standard->useInternalGUI()) {
           $ccInfo = $standard->getCheckout()->getCardInfo();
@@ -51,7 +54,7 @@ class Trollweb_BBSNetAxept_Block_Redirect extends Mage_Core_Block_Abstract
           $form->addField($prefix.'c','hidden', array('name' => $prefix.'c', "value" => $ccInfo->getCcCid()));          
         }
 
-        $form->addField('BBSePay_transaction','hidden', array("name"=>'BBSePay_transaction', "value"=>$standard->getCheckout()->getBBSTransKey()));
+        $form->addField('BBSePay_transaction','hidden', array("name"=>'BBSePay_transaction', "value"=>$bbsTransKey));
         $html = '<html><body>';
         $html.= $this->__('You will be redirected to BBS NetAxept in a few seconds.');
         $html.= $form->toHtml();

@@ -26,7 +26,7 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
     protected $_code = 'bbsnetaxept_withgui';
     protected $_formBlockType = 'bbsnetaxept/form';
     protected $_infoBlockType = 'bbsnetaxept/paymentInfo';
-    protected $_allowCurrencyCode = array('NOK', 'USD', 'EUR');
+    protected $_allowCurrencyCode = array('NOK', 'SEK', 'USD', 'EUR');
     
 
     //* Options *//
@@ -35,11 +35,12 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
     protected $_canCapture              = true;
     protected $_canCapturePartial       = false;
     protected $_canRefund               = true;
+    protected $_canRefundInvoicePartial = true;
     protected $_canVoid                 = false;
     protected $_canUseInternal          = true;
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = false;
-    protected $_canSaveCc = false;
+    protected $_canSaveCc               = false;
     
     
     /**
@@ -61,7 +62,7 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
     {
         return $this->getCheckout()->getQuote();
     }
-    
+            
     /**
      * Assign data to info model instance
      *
@@ -109,7 +110,7 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
      */
     public function canUseInternal()
     {
-        return true;
+        return $this->_canUseInternal;
     }
 
     /**
@@ -119,17 +120,27 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
      */
     public function canUseForMultishipping()
     {
-        return false;
+        return $this->_canUseForMultishipping;
     }    
         
     /*validate the currency code is avaialable to use for paypal or not*/
     public function validate()
     {
         parent::validate();
-        $currency_code = $this->getQuote()->getBaseCurrencyCode();
+        $info = $this->getInfoInstance();
+        if ($info instanceof Mage_Sales_Model_Order_Payment) {
+          $currency_code = $info->getOrder()->getBaseCurrencyCode();
+        } else {
+          $currency_code = $info->getQuote()->getBaseCurrencyCode();
+        }
+        
         if (!in_array($currency_code,$this->_allowCurrencyCode)) {
             Mage::throwException(Mage::helper('bbsnetaxept')->__('Selected currency code ('.$currency_code.') is not compatible with BBS NetAxept'));
         }
+        elseif (!$this->getApi()->setRegCode($this->getConfigData('regcode'))->validate()) {
+           Mage::throwException(Mage::helper('bbsnetaxept')->__('This is an unregisted version of BBS NetAxept. Please go to your admin page in Magento and aquire your free registration code. See www.trollweb.no/bbs for details'));
+        }
+        
         return $this;
     }
 
@@ -142,36 +153,46 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
 	{
 	    
 	}
+	
+	public function getBBSTransKey()
+	{
+     $this->getCheckout()->setBBSTransactionId(uniqid());
+    
+     $transKey = $this->getApi()->
+                        setCurrencyCode($this->getQuote()->getBaseCurrencyCode())->
+                        setTransactionId($this->getCheckout()->getBBSTransactionId())->
+                        setAmount(sprintf("%0.0f",$this->getQuote()->getGrandTotal()*100))->
+                        setOrderNumber($this->getQuote()->getReservedOrderId())->
+                        setOrderDescription(date("d.m.Y")." - Order ".$this->getQuote()->getReservedOrderId())->
+                        setCustomerEmail($this->getQuote()->getBillingAddress()->getEmail())->
+                        setCustomerPhoneNumber($this->getQuote()->getBillingAddress()->getTelephone())->
+                        setSessionId($this->getCheckout()->getQuoteId())->
+                        setInternalGUI($this->useInternalGUI())->
+                        getTransKey();
+                          
+    if ($transKey == false) {
+      Mage::throwException(Mage::helper('bbsnetaxept')->__('Error receiving key from BBS: '.$this->getApi()->getErrorMessage()));
+    }
+    else {
+      $this->getCheckout()->setBBSTransKey($transKey);
+      if ($this->useInternalGUI()) {
+        $info = $this->getInfoInstance();
+        if (!($info instanceof Varien_Object)) {
+          $info = new Varien_Object($info);
+        }
+        $this->getCheckout()->setCardInfo($info);
+      }
+	    $order = Mage::getModel('sales/order');
+	    $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+	    $order->addStatusToHistory('pending_bbs','Redirected to BBS Payment.',false);
+	    $order->save();
+    }
+    
+    return $this->getCheckout()->getBBSTransKey();
+	}
 
 	public function getOrderPlaceRedirectUrl()
 	{
-	  $this->getCheckout()->setBBSTransactionId(uniqid());
-	  
-      $transKey = $this->getApi()->
-                          setCurrencyCode($this->getQuote()->getBaseCurrencyCode())->
-                          setTransactionId($this->getCheckout()->getBBSTransactionId())->
-                          setAmount(sprintf("%0.0f",$this->getQuote()->getBaseGrandTotal()*100))->
-                          setOrderNumber($this->getQuote()->getReservedOrderId())->
-                          setOrderDescription(date("d.m.Y")." - Order ".$this->getQuote()->getReservedOrderId())->
-                          setCustomerEmail($this->getQuote()->getBillingAddress()->getEmail())->
-                          setCustomerPhoneNumber($this->getQuote()->getBillingAddress()->getTelephone())->
-                          setSessionId($this->getCheckout()->getQuoteId())->
-                          setInternalGUI($this->useInternalGUI())->
-                          getTransKey();
-                          
-      if ($transKey == false) {
-	    Mage::throwException(Mage::helper('bbsnetaxept')->__('Error during auth with BBS: '.$this->getApi()->getErrorMessage()));
-	  }
-	  else {
-	    $this->getCheckout()->setBBSTransKey($transKey);
-	    if ($this->useInternalGUI()) {
-    	    $info = $this->getInfoInstance();
-            if (!($info instanceof Varien_Object)) {
-                $info = new Varien_Object($info);
-            }
-    	    $this->getCheckout()->setCardInfo($info);
-	    }
-	  }
 	  return Mage::getUrl('bbsnetaxept/return/redirect', array('_secure' => true));
 	}
 
@@ -216,8 +237,8 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
         $isOK = false;
 
         // Load order.
-	    $order = Mage::getModel('sales/order');
-	    $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+		    $order = Mage::getModel('sales/order');
+		    $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
         
         if ($this->getApi()->Process($bbskey) == $this->getCheckout()->getBBSTransactionId()) {
           
@@ -225,36 +246,44 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
 
             
 	          $this->getCheckout()->getQuote()->setIsActive(false)->save();
-	
-		      /**
-		       * send confirmation email to customer
-		       */
-		      if($order->getId()){
-		          $order->sendNewOrderEmail();
-		      }
 
-		      $order->getPayment()->setBbsTransactionId($this->getCheckout()->getBBSTransactionId())->
-		                            setBbsAuthenticatedStatus($this->getApi()->Result()->getAuthenticatedStatus())->
-		                            setBbsAuthenticatedWith($this->getApi()->Result()->getAuthenticatedWith())->
-		                            setBbsIssuerCountry($this->getApi()->Result()->getIssuerCountry())->
-		                            setBbsIssuerId($this->getApi()->Result()->getIssuerId())->
-		                            setBbsAuthorizationId($this->getApi()->Result()->getAuthorizationId())->
-		                            setBbsSessionNumber($this->getApi()->Result()->getSessionNumber());
+			      $order->getPayment()->setBbsTransactionId($this->getCheckout()->getBBSTransactionId())->
+			                            setBbsAuthenticatedStatus($this->getApi()->Result()->getAuthenticatedStatus())->
+			                            setBbsAuthenticatedWith($this->getApi()->Result()->getAuthenticatedWith())->
+			                            setBbsIssuerCountry($this->getApi()->Result()->getIssuerCountry())->
+			                            setBbsIssuerId($this->getApi()->Result()->getIssuerId())->
+			                            setBbsAuthorizationId($this->getApi()->Result()->getAuthorizationId())->
+			                            setBbsSessionNumber($this->getApi()->Result()->getSessionNumber());
 
-              if ($this->getApi()->Result()->getResponseCode() == "OK") {
-    	          $order->getPayment()->setStatus(self::STATUS_APPROVED);
-    	          $isOK = true;
+            if ($this->getApi()->Result()->getResponseCode() == "OK") {
+              $order->getPayment()->setStatus(self::STATUS_APPROVED);
+              //Set new orderstatus
+              $newOrderStatus = $this->getConfigData('auth_order_status');
+              if (empty($newOrderStatus)) {
+                $newOrderStatus = $order->getStatus();
               }
-    	          
-              $order->save();	    
-              if ($this->getConfigData('payment_action') == 'sale') {
-                  $invoice = $order->prepareInvoice();
-                  $invoice->register()->capture();
-                    Mage::getModel('core/resource_transaction')
-                        ->addObject($invoice)
-                        ->addObject($invoice->getOrder())
-                        ->save();
-              }      
+              $order->addStatusToHistory($newOrderStatus,'BBS Authorization successfull.',false);
+              
+		          /**
+		           * send confirmation email to customer
+		           */
+		          if($order->getId()){
+		              $order->sendNewOrderEmail();
+		          }
+              
+              $isOK = true;
+            }
+    	        
+              
+            $order->save();	    
+            if ($this->getConfigData('payment_action') == 'sale') {
+                $invoice = $order->prepareInvoice();
+                $invoice->register()->capture();
+                Mage::getModel('core/resource_transaction')
+                      ->addObject($invoice)
+                      ->addObject($invoice->getOrder())
+                      ->save();
+            }      
 	      }
 	      else {
 	        $order->getPayment()->setBbsAuthenticatedStatus('Error')->setBbsAuthenticatedWith($this->getApi()->getErrorMessage());
@@ -332,6 +361,35 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
         }
 
         return $this;
+    }
+    
+    public function getLogoMethods() {
+         $codes = array(0 => Mage::helper('bbsnetaxept')->__('Ingen logo'),
+//                        1 => Mage::helper('bbsnetaxept')->__('BBS logo'),
+                        2 => Mage::helper('bbsnetaxept')->__('BBS Technology logo')
+                       );
+ 	       return $codes;
+    }
+    
+    public function getLogoUrl() {
+    	$logotype = $this->getConfigData('logo');
+    	switch($logotype) {
+    		case 1: 
+    			$url = 'images/bbsnetaxept/logo.png';
+    		  break;
+    		case 2:
+    			$url = 'images/bbsnetaxept/technology_logo.png';
+    			break;
+    		case 0:
+    		default:
+    			$url = '';
+    			break;
+    	}
+    	return $url;
+    }
+    
+    public function getRedirectText() {
+    	return $this->getConfigData('redirect_text');
     }
     
     

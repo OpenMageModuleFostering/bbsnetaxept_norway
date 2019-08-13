@@ -24,4 +24,14 @@ class Trollweb_BBSNetAxept_Block_Form extends Mage_Payment_Block_Form
         $this->setTemplate('bbsnetaxept/form.phtml');
         parent::_construct();
     }
+    
+    protected function getLogo()
+    {
+      return $this->getMethod()->getLogoUrl();
+    }
+    
+    protected function getRedirectText()
+    {
+    	return $this->getMethod()->getRedirectText();
+    }
 }
