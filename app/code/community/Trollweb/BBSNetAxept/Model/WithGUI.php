@@ -174,9 +174,9 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
 	     $order->getPayment()->setBbsTransactionId($this->getCheckout()->getBBSTransactionId());     
 	     
        $transKey = $this->getApi()->
-                          setCurrencyCode($this->getQuote()->getStoreCurrencyCode())->
+                          setCurrencyCode($order->getOrderCurrencyCode())->
                           setTransactionId($this->getCheckout()->getBBSTransactionId())->
-                          setAmount(sprintf("%0.0f",$this->getQuote()->getGrandTotal()*100))->
+                          setAmount(sprintf("%0.0f",$order->getGrandTotal()*100))->
                           setOrderNumber($this->getCheckout()->getLastRealOrderId())->
                           setOrderDescription(date("d.m.Y")." - Order ".$this->getCheckout()->getLastRealOrderId())->
                           setCustomerEmail($this->getQuote()->getCustomerEmail())->

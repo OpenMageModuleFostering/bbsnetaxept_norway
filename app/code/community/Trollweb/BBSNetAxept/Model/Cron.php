@@ -31,7 +31,6 @@ class Trollweb_BBSNetAxept_Model_Cron
         $bbs = Mage::getModel('bbsnetaxept/withGUI')->getApi();
       	// Cancel all orders older than X minutes. (change in config)
       	$timeout = $order->getPayment()->getMethodInstance()->getPendingTimeout();
-      	var_dump($timeout);
         if (($timeout > 0) and (strtotime($order->getUpdatedAt())+($timeout*60) < time()))
         {
           $transid = $order->getPayment()->getBbsTransactionId()."\n";

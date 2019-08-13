@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Trollweb_BBSNetAxept>
-    	    <version>1.5.5</version>
+    	    <version>1.5.6</version>
         	<depends>
         		<Mage_Payment />
         	</depends>
