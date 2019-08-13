@@ -50,7 +50,7 @@ class Trollweb_BBSNetAxept_ReturnController extends Mage_Core_Controller_Front_A
     }
 
     /**
-     * When a customer cancel payment from paypal.
+     * When a customer returns from BBS Checkout page.
      */
     public function checkAction()
     {
@@ -58,12 +58,11 @@ class Trollweb_BBSNetAxept_ReturnController extends Mage_Core_Controller_Front_A
         
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getBBSNetterminalStandardQuoteId(true));
-        
+
         if ($this->getStandard()->checkResult($this->getRequest()->getQuery("BBSePay_transaction"))) {
 	        $redirect = 'checkout/onepage/success';
         }
- 
-	    $this->_redirect($redirect, array('_secure'=>true));
+        $this->_redirect($redirect, array('_secure'=>true));
     }
 }
   

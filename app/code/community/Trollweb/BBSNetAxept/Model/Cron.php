@@ -29,13 +29,37 @@ class Trollweb_BBSNetAxept_Model_Cron
                       
       foreach ($collection as $key => $order) {
         $bbs = Mage::getModel('bbsnetaxept/withGUI')->getApi();
-      	// Cancel all orders older than X minutes. (change in config)
+      	// Cancel all orders older than X minutes. (change in admin)
       	$timeout = $order->getPayment()->getMethodInstance()->getPendingTimeout();
-        if (($timeout > 0) and (strtotime($order->getUpdatedAt())+($timeout*60) < time()))
+      	
+      	if (($timeout > 0) and (strtotime($order->getUpdatedAt())+($timeout*60) < time()))
         {
-          $transid = $order->getPayment()->getBbsTransactionId()."\n";
-          if ($bbs->checkStatus($transid) == false) {
+          $transid = $order->getPayment()->getAdditionalInformation(Trollweb_BBSNetAxept_Model_WithGUI::TRANSACTION_ID);
+          $status = $bbs->checkStatus($transid);
+          if ($status == false) {
+          	$bbs->doLog('Order number '.$order->getIncrementId().' is automatic canceled due to missing payment (Timeout: '.$timeout.')',true);
             $order->cancel()->save();
+          }
+          else {
+
+          	// If marked as captured in BBS, lets try to find the correct invoice and mark it as captured here aswell.
+            $captured = $bbs->getAmountCaptured();
+            if ($captured > 0) {
+            	if ($order->hasInvoices()) {
+            		
+            		foreach ($order->getInvoiceCollection() as $id => $invoice) {
+            			$amount = $invoice->getGrandTotal();
+            			if ($invoice->canCapture() and ($amount*100 == $captured)) {
+            				$bbs->doLog('Invoice number '.$invoice->getIncrementId().' was marked as captured on BBS and is automaticly marked as paied in magento. (Amount: '.$amount.')',true);
+                    $invoice->setIsPaid(true);
+            				$invoice->pay()->save();
+                    $message = Mage::helper('bbsnetaxept')->__('Registered notification about captured amount of %s.', $amount);
+                    $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
+            				$order->save();
+            			}
+            		}
+            	}
+            }
           }
         }
       }

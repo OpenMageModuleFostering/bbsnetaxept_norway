@@ -24,9 +24,23 @@ class Trollweb_BBSNetAxept_Block_PaymentInfo extends Mage_Payment_Block_Info
         parent::_construct();
         $this->setTemplate('bbsnetaxept/paymentinfo.phtml');
     }
-
+	
     protected function getLogo()
     {
-    	return $this->getMethod()->getLogoUrl();
+      return $this->getMethod()->getLogoUrl();
     }
+	
+    protected function _prepareSpecificInformation($transport = null)
+    {
+        $transport = parent::_prepareSpecificInformation($transport);
+        $payment = $this->getInfo();
+        $bbsInfo = Mage::getModel('bbsnetaxept/info');
+        if (!$this->getIsSecureMode()) {
+        	$info = $bbsInfo->getPaymentInfo($payment);
+        } else {
+          $info = $bbsInfo->getPublicPaymentInfo($payment);
+        }
+        return $transport->addData($info);
+    }
+	
 }

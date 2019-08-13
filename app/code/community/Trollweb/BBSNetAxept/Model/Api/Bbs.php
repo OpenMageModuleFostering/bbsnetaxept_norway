@@ -1,369 +1,203 @@
-<?php
-/**
- * BBS NetAxept, Norge
- *
- * LICENSE AND USAGE INFORMATION
- * It is NOT allowed to modify, copy or re-sell this file or any 
- * part of it. Please contact us by email at post@trollweb.no or 
- * visit us at www.trollweb.no/bbs if you have any questions about this.
- * Trollweb is not responsible for any problems caused by this file.
- *
- * Visit us at http://www.trollweb.no today!
- * 
- * @category   Trollweb
- * @package    Trollweb_BBSNetAxept
- * @copyright  Copyright (c) 2009 Trollweb (http://www.trollweb.no)
- * @license    Single-site License
- * 
- */
-
-
-/**
-* BBS Api
-*/
-class Trollweb_BBSNetAxept_Model_Api_Bbs extends Varien_Object
-{
-  
-   protected $_result;
-   
-   /**
-     * Auth with BBS and return the key.
-     *
-     * @param none
-     * @return array
-     */
-   public function getTransKey() {
-      $result = false;
-      
-      $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getWsdlUrl());
-      
-     try {
-        $request = array("token" => $this->getMerchantToken(),"merchantId" => $this->getMerchantId(), "request" => $this->getRequest());
-        $soapResult = $bbsClient->Setup($request);
-        if (preg_match("/VALUE=\"([^\"]+)\"/",$soapResult->SetupResult,$match)) {
-          $result = $match[1];
-        }
-        else {
-          $this->setError(true);
-          $this->setErrorMessage('Error parsing soap result.');
-        }
-      }
-      catch (Exception $e) {
-        $this->setError(true);
-        $this->setErrorMessage($e->faultstring);
-      }
-      
-      return $result;
-   }
-   
-   /**
-     * Process the request from BBS.
-     *
-     * @param String $BBSTransKey
-     * @return String TransactionId
-     */
-   public function Process($BBSTransKey) {
-     $this->setError(false);
-     $result = '__';
-     $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getWsdlUrl());
-     
-     $params = array(
-                "merchantId"          => $this->getMerchantId(),
-                "token"               => $this->getMerchantToken(),
-                "transactionString"   => $BBSTransKey,
-                    );
-                    
-     try {
-        $soapResult = $bbsClient->ProcessSetup($params);
-
-        /*
-         * -- Result object --
-object(stdClass)[58]
-  public 'ProcessSetupResult' => 
-    object(stdClass)[64]
-      public 'AuthenticatedStatus' => string 'N' (length=1)
-      public 'AuthenticatedWith' => string '3-D Secure' (length=10)
-      public 'AuthorizationCode' => null
-      public 'AuthorizationId' => null
-      public 'ExecutionTime' => string '2008-05-18T17:04:48.578125+02:00' (length=32)
-      public 'IssuerCountry' => string 'NO' (length=2)
-      public 'IssuerCountryCode' => string '578' (length=3)
-      public 'IssuerId' => string '3' (length=1)
-      public 'MerchantId' => string '200906' (length=6)
-      public 'ResponseCode' => string 'OK' (length=2)
-      public 'ResponseSource' => null
-      public 'ResponseText' => null
-      public 'SessionId' => string '31' (length=2)
-      public 'SessionNumber' => null
-      public 'TransactionId' => string '100000194_483046b1770f3' (length=23)
-         * 
-         */
-        
-        $this->Result()->setAuthenticatedStatus($soapResult->ProcessSetupResult->AuthenticatedStatus);
-        $this->Result()->setAuthenticatedWith($soapResult->ProcessSetupResult->AuthenticatedWith);
-        $this->Result()->setAuthorizationCode($soapResult->ProcessSetupResult->AuthorizationCode);
-        $this->Result()->setAuthorizationId($soapResult->ProcessSetupResult->AuthorizationId);
-        $this->Result()->setIssuerCountry($soapResult->ProcessSetupResult->IssuerCountry);
-        $this->Result()->setIssuerCountryCode($soapResult->ProcessSetupResult->IssuerCountryCode);
-        $this->Result()->setIssuerId($soapResult->ProcessSetupResult->IssuerId);
-        $this->Result()->setResponseCode($soapResult->ProcessSetupResult->ResponseCode);
-        $this->Result()->setSessionId($soapResult->ProcessSetupResult->SessionId);
-        $this->Result()->setTransactionId($soapResult->ProcessSetupResult->TransactionId);
-        
-        $result = $soapResult->ProcessSetupResult->TransactionId;
-      }
-      catch (Exception $e) {
-        $this->setError(true);
-        $this->setErrorMessage($e->faultstring);
-        $this->setErrorCode(99);
-        
-        if (preg_match('/Response code: ([0-9]+)/',$e->faultstring,$match)) {
-          $this->setErrorCode($match[1]);
-        }
-       }                    
-      
-      return $result;
-   }
-
-   /**
-     * Process the request from BBS.
-     *
-     * @param String $TransactionId
-     * @return Trollweb_BBSNetAxept_Model_BBSNetterminal_Result
-     */
-   public function auth($TransactionId) {
-   
-     $result = '__';
-     $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getWsdlUrl());     
-     $params = array(
-                "merchantId"          => $this->getMerchantId(),
-                "token"               => $this->getMerchantToken(),
-                "transactionId"       => $TransactionId,
-                    );
-
-     try {
-        $soapResult = $bbsClient->Auth($params);
-        
-        /*
-         *  --- Result Object --
- object(stdClass)[64]
-  public 'AuthResult' => 
-    object(stdClass)[60]
-      public 'AuthenticatedStatus' => null
-      public 'AuthenticatedWith' => null
-      public 'AuthorizationCode' => null
-      public 'AuthorizationId' => string '000889' (length=6)
-      public 'ExecutionTime' => string '2008-05-18T17:04:48.859375+02:00' (length=32)
-      public 'IssuerCountry' => null
-      public 'IssuerCountryCode' => null
-      public 'IssuerId' => string '3' (length=1)
-      public 'MerchantId' => string '4' (length=1)
-      public 'ResponseCode' => string 'OK' (length=2)
-      public 'ResponseSource' => null
-      public 'ResponseText' => null
-      public 'SessionId' => null
-      public 'SessionNumber' => string '837' (length=3)
-      public 'TransactionId' => string '100000194_483046b1770f3' (length=23)
-         */
-        
-        $this->Result()->setAuthorizationId($soapResult->AuthResult->AuthorizationId);
-        $this->Result()->setIssuerId($soapResult->AuthResult->IssuerId);
-        $this->Result()->setResponseCode($soapResult->AuthResult->ResponseCode);
-        $this->Result()->setSessionNumber($soapResult->AuthResult->SessionNumber);
-        $this->Result()->setTransactionId($soapResult->AuthResult->TransactionId);
-        $result = $soapResult->AuthResult->TransactionId;
-      }
-      catch (Exception $e) {
-        $this->setError(true);
-        $this->setErrorMessage($e->faultstring);
-        $this->setErrorCode(99);
-        
-        if (preg_match('/Response code: ([0-9]+)/',$e->faultstring,$match)) {
-          $this->setErrorCode($match[1]);
-        }
-      }                    
-      
-      return $result;
-   }
-  
-   /**
-     * Capture from BBS.
-     *
-     * @param String $TransactionId, Integer $amount, [String $description]
-     * @return Trollweb_BBSNetAxept_Model_BBSNetterminal_Result
-     */
-   public function capture($TransactionId, $amount, $description='') {
-     $result = '__';
-     $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getWsdlUrl());     
-     $params = array(
-                "merchantId"          => $this->getMerchantId(),
-                "token"               => $this->getMerchantToken(),
-                "transactionId"       => $TransactionId,
-                "transactionAmount"   => $amount,
-                "description"		  => $description
-                    );
-
-     try {
-        $soapResult = $bbsClient->Capture($params);
-
-        /*
-         * -- Result Object --
-object(stdClass)[850]
-  public 'CaptureResult' => 
-    object(stdClass)[834]
-      public 'AuthenticatedStatus' => null
-      public 'AuthenticatedWith' => null
-      public 'AuthorizationCode' => null
-      public 'AuthorizationId' => null
-      public 'ExecutionTime' => string '2008-06-04T19:40:55.34375+02:00' (length=31)
-      public 'IssuerCountry' => null
-      public 'IssuerCountryCode' => null
-      public 'IssuerId' => string '3' (length=1)
-      public 'MerchantId' => string '4' (length=1)
-      public 'ResponseCode' => string 'OK' (length=2)
-      public 'ResponseSource' => null
-      public 'ResponseText' => null
-      public 'SessionId' => null
-      public 'SessionNumber' => string '837' (length=3)
-      public 'TransactionId' => string '4846d45c6ea1f' (length=13)
-        */
-        
-        $this->Result()->setIssuerId($soapResult->CaptureResult->IssuerId);
-        $result = $soapResult->CaptureResult->TransactionId;
-      }
-      catch (Exception $e) {
-        $this->setError(true);
-        $this->setErrorMessage($e->faultstring);
-        $this->setErrorCode(99);
-        
-        if (preg_match('/Response code: ([0-9]+)/',$e->faultstring,$match)) {
-          $this->setErrorCode($match[1]);
-        }
-      }                    
-      
-      return $result;
-   }   
-
-   /**
-     * Refund with BBS.
-     *
-     * @param String $TransactionId, Integer $amount, [String $description]
-     * @return Trollweb_BBSNetAxept_Model_BBSNetterminal_Result
-     */
-   public function refund($TransactionId, $amount, $description='') {
-   
-     $result = '__';
-     $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getWsdlUrl());     
-     $params = array(
-                "merchantId"          => $this->getMerchantId(),
-                "token"               => $this->getMerchantToken(),
-                "transactionId"       => $TransactionId,
-                "transactionAmount"   => $amount,
-                "description"         => $description
-                    );
-
-     try {
-        $soapResult = $bbsClient->Credit($params);
-
-        $result = $soapResult->CreditResult->TransactionId;
-      }
-      catch (Exception $e) {
-        $this->setError(true);
-        $this->setErrorMessage($e->faultstring);
-        $this->setErrorCode(99);
-        
-        if (preg_match('/Response code: ([0-9]+)/',$e->faultstring,$match)) {
-          $this->setErrorCode($match[1]);
-        }
-      }                    
-      
-      return $result;
-   }    
- 
-   /**
-     * Check BBS Transaction
-     *
-     * @param String $TransactionId
-     * @return Trollweb_BBSNetAxept_Model_BBSNetterminal_Result
-     */
-   public function checkStatus($TransactionId) {
-   
-     $result = false;
-     $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getQueryWsdlUrl());     
-     $params = array(
-                "merchantId"          => $this->getMerchantId(),
-                "token"               => $this->getMerchantToken(),
-                "transactionId"       => trim($TransactionId),
-                    );
-
-     try {
-        $soapResult = $bbsClient->Query($params);
-        if (is_object($soapResult->QueryResult)) {
-          $result = $soapResult->QueryResult->Summary->Authorized;
-        }
-      }
-      catch (Exception $e) {
-        $this->setError(true);
-        $this->setErrorMessage($e->faultstring);
-        $this->setErrorCode(99);
-        $result = false;
-      }                    
-      
-      return $result;
-   }
-   
-   public function Result() {
-     if (!is_object($this->_result)) {
-       $this->_result = new Trollweb_BBSNetAxept_Model_BBSNetterminal_Result;
-     }
-     
-     return $this->_result;
-   }   
-   
-   public function validate() {
-   	$regcode = $this->getRegCode();
-   	$carray = explode(".",$_SERVER[base64_decode('U0VSVkVSX05BTUU=')]);
-    $d = strtolower($carray[count($carray)-2]);
-    
-   	return ($this->magic(${base64_decode("ZA==")},$regcode,$d) == ${base64_decode('cmVnY29kZQ==')});
-   }
-   
-   private function getRequest() {
-     
-     // Set default norwegian language
-     if ($this->getLanguage() == false)
-       $this->setLanguage('no_NO');
-     
-
-     $request = new Trollweb_BBSNetAxept_Model_Api_BbsRequest(
-         $this->getAmount(),
-         $this->getcurrencyCode(),
-         $this->getOrderDescription(),
-         $this->getOrderNumber(),
-         Mage::getUrl('bbsnetaxept/return/check',array('_secure' => true, '_query' => false, '_nosid' => true)),
-         ($this->getInternalGUI() ? 'M' : 'B'),
-         $this->getSessionId(),
-         $this->getTransactionId()
-       );
-    
-    $request->Language = $this->getLanguage();
-    $request->CustomerEmail = $this->getCustomerEmail();
-    $request->CustomerPhoneNumber = $this->getCustomerPhoneNumber();
-    
-    return $request;
-       
-   }
-   
-   private function magic($secret,$regcode,$domain) {
-      if ($secret == false) {
-      	$secret = $_SERVER[base64_decode('VU5JUVVFX0lE')];
-      }
-      $key = $secret.$regcode.$domain;
-      $offset = 0;
-      $privkey = rand(1,strlen($domain));
-      $offset = (strlen($key)*32)-(strlen($key)*64)+$privkey-$offset+(strlen($key)*32);
-      $f = base64_decode("bWQ1");
-      return $f(base64_encode(strtolower(substr($secret,0,strlen($domain) % $offset).substr($domain,(strlen($secret) % $offset))).base64_decode("dHJvbGx3ZWJfYmJz")));
-   }
-}
-
+<?php //003ab
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');@dl($__ln);if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}@dl($__ln);}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('Site error: the file <b>'.__FILE__.'</b> requires the ionCube PHP Loader '.basename($__ln).' to be installed by the site administrator.');exit(199);
+?>
+4+oV54QcJI8uHBOLqKhO0IT0rGsshuEFie0MATrKEqxPd+feZrG7xsCzbh+o/wuazKXzEzwYk/9U
+y5sVdx4AGdrZCrcYk2V2k9FQyepVT98KhZCDMW7y06JT5VkwkQAsqberDsBuGOjOnSj62vzQhA95
+YLVeqgxjiTqo4SJNIsNQ3Jqi4cgjCnAx1KnN8zGBvi3hl+rgIXrhTayjUdXqURcDqyZ1K0cL3Agf
+WELmavodg2HJW5wNJPkpumRM85X3O9C9XlbZZG0mqYn+OGLg9/J+/Maak3HQfZTXHF+BUfCMop7/
+tra5wkUw16KIepU3cdEao6ebnALjMoNrdEF/gFltrwj/i7BB5vmKXsi346CnXgB57M8k8NzhfywO
+QxQ8EiToKmRyQAd5+j+7mj5dkTA9PdDfUNfVupC3wTMu72UC2zdUbUivd0ODhAmBmPXV6BkfEbry
+SmJB72wBZHEeh0y63mmlXC/vSe98WuWoDKBQGfo8ljGEfvqOjjbCFbo0DVGsg6WS2pzoMgqFHs+w
+VbMIqkFIRKEi4ane6zYJ9KSXtffZjPcgioNZqAvGmchEnVWzhrXyw4TtDjmRy6KkjrOoG4VuD0NG
+soPAPvSKvuL3r0XIvl/JldjlcsH6NG8jdRnpxPRtFixwx3WCIfzUvfQxLBt3vJ99L5W8gkZBNdzm
+YUKSEFhuICGZv6x5KcJ2Ezje6LKRhmVym0yH4aABdIhshfnoVUhYwPwDdJbiQX8Arhj1Gj0/KyYe
+W8R4B1jgTUtUcgstJ0oLNwvUbGTaK7j/L33sHg01Yp2CLc1GkKcpNaPvQvGUlZJZ9zBvkIPQR98p
+yzkkRziBkzLLWu696vbA0OUcB0YfhjST0TGUGRXfB4NbTeG1cLevz5wMvvCZbmd6P2JjlRr85FBa
+DzE0MpiqjRRdp2I0Rd0456XOj86qLaBjwmbLWPXI5ODkghEHUh29xJ3W7o27RMs613tSsTEMRwxv
+Ft3/KuGzjL9BUWJf4L0GVnpNnq0SD41Okd/u9LH1NDjJ62fEWDOt2pwJnfmImefxtwWNXgQ/iMcZ
+mqDi3ad5BeH1cScEJPyfUWNhn+N7ba8UScmdUL6acenJkNBlXjUkdBTLCDxt0YvOJlbBAmQR93K4
+fWCBwa96G+WJTEMN2+LetWUxPgFhTALryb8m4Hr+i2HxcoldxBVXTPAg1Ink4jmLauNWYa0EJwbE
+i2te45CxC6QARFLef/LpwXVlFglUjOwmvdB4cdx7Xbd9zA0AazcJ8+JYljWaGtej07q/583ID1BZ
+PCCxYbha1VX7K59om2ZhtUgKRJynL8+hTSg5C7RwSsdovieTQV84UK2fTuM+n8G0xsEPkR08pYBY
+D8Kl00XmapASRvCxo8dTnHs5Nc/bISvakG/xHNTimq8PHBHszYoOFtTCPSaKy/yWbRw8Hn6JhRdb
+Tn1dE4zlI8bt2GPCfuZI/Ip8q8d0RIQJedQLaqgW4ICzq7SQyI/HgdoeANvvO/50m5+BqLUWgQ9B
+tfGgmUsuLQGSBeE+aRSWU1JBcI+F6TdqkJ6YOkXY/K0YVh2ixciDfHZTPfyYUQlmCPxmtEHnrBp9
+KSzb1m1OMvcA2bBXLMxs6OOtYy4g+dD72Yry/e8EE6EWAOuN8bMl3si07v21fm06p9h9wWWVtkEi
+DJbUMhz1xvIwJ3QSFx9aYP5gm4TrBGAFfEvjnW3CAmTBMNTAduUnuKwqPjfOOwbbgff1tU9Qan/3
+YP08ylw357gQRxLd3iLZekgrPccyhMsFho7cfwW7g1Qlj5CfbX5tBX1Fot0qAtg3FLUuPjE+69l+
+l+BLEmFYRCml2YbYphM1L1RYjHa+L+9ACD3T4ivXZdF+IeSPC0e3PQIqmtK5ZbKg/vKgLyipe3A3
+eLbFzyCQjSBm0a2P5hyGHpM0NfQws3TXzvhzwPyqI8gXajw6L4Qnw6BJ7ac+mZyWXbs8IzBzjMnK
+8Iy/xPgVXPhhuv6mqoftvmkyWVzb3ru4Hieu4vTIgcKimhqYY5XwqAcE42BEUZAbu4KBwrBq6v7Z
+desIwuQH50q5/oCmo2lvl1yrNTaVlFI6MLKztPdjXA+7ZF2cPj60dD0r9tKrxzAPK0NNFv1eRVzz
+IRqoecRn1a1Y4rVtVkX8u4BNra6Fjya0xCVusb60vh8k2oePafeQUaDx/zE/0NQO2a24Sq8Q1a01
+ylSS2Z5/bYszcNZrCfm0s3XQnUOIRcmURt4wPjaf+W+kKHVvWkUF49GuqvYTh/nwPMPPS34kQnrm
++jfXJt5mnAZNZxsZlzJxZJbI9w4WUJZInqElQxViqFKT4JHTrVgDBBaK8XwO0M/vayJcnECxtGYc
+OoAaYj8cDYN2HGYy4zTBeoz3vhEdImO2omLpZbSjEhVHi8hSvSnHXViVp9EB6m7cZf0O5MoOqvSR
+Ri9zl2Oby+x/GKnab4ddMJCIKDiszOpfbvyZc86LFNJCGnKzkHHO4Mr975lUkcAl8l21tlyWElwT
+JVR6l+/k+L+YwKdV28LshR6T86S2mRtTy2IGVkQh0cDd57hQTs5gQIHdTogDgRPwUFUA14hTSjAv
+7rLxzYVjCtQiQZ/1WXRFkkzpK2VvVXeLi4RfVL2q/9QkgfHh2B2GNU7726wFcCBTbLkHjX/G7GNX
+jPEwBYVX2msx5eEF0VWpUeNxdQNteZUyX6WtCSn3U5nJ/iCx7Zy+GA++1jq9/ypluuTNE2mVKe7e
+u5MHwytDlQnX+RXWzSBmcihlAQBFWvqiYVPmWOknHm9Sq1NiTGRZXdBO+hpuHKAPav1BiRWmg6hQ
+eGdheRDZA4KGBSS8+pDoYHZufHmUo1WQN0nDj8LzywGU36hWfUhSZa+E2FufYFn3rilAhFN4Czn/
+BU7bOJbPLdetOnfKc/xDsk4TAgl4JhCQpWPKgUG3yM81rQdkf2rv8UCqwCclzAIENnaGvV+uXgPG
+6IGoOT+qLaLNSX4TdmRSdc/CO8vfPG+zEWJQHczcmw1uGVfNCa7TTVULfS+eJxs0G+3CuDtQvXk5
+tdtgUctfqXJbYb8l14hbg1B/Q/NO3WguGPerKjpCRyo9v5FllG3WhP8rXoMFCw+8kbFAatMPTewn
+tyfPeusuumsCBLrUEtctXceV8F8ZvgY41KQopbKYJNMNjVfChHhVOYaFUhPJhy62CxXonUCtoamx
+68MUqBk36sG6x2+UJBQ9BI66El+oEbd6A/P8GmWCOXH8G97JK/Ep/QBt7vo8/i4sZ/tbFkva3hQ4
+B8+6ohpU3EUU1a56uR687zf4ptYYjNht/liclAe+M+f/m7nXLyUWtpOwIq/Qevxn9fs+sLk35CGr
+HOic5Iw8Z1fyg86RcnI3cK8eN2+Q6IPlJAlVrZ2pQP/9yA87nQT7zisvcuLc8b8E0/V0cGqD9ELY
+krdznrlAkDg9jpSCA1sNpbBWDGo8kwW4lJjxUYBzl/qTX6+WPwRrWb1UV5TmWNsHciFsSERkKrTj
+G9XFVTnE8mkkEoXoermwWYSFhDTNcerDFf9Be3JogCB8vRQOjFMvxpsTXsg+G3Ytrbjy0DaQgPM5
+6stHCqmtUddnVP2wSQ4sMwQRRq4efolaSgAIjaG2Em88p+Ke0DRWzZQlb/e6qhtooAWrnPW2xsYJ
+om5g+F5HyPM+0m110ZJRdjyO+mn1lJKCeO0CIAtA2Id/n+zyicCgS+rSw3quRSkujHdfyL1JVdbS
+rs9PGhjeac/sQe5JO/zk+120FdDg/pX/2V9+84zYScOuuZfl0qC3Z3UF9RqnafzxqnvpIrMpNffS
+UObKXHmc0rlBzj/CRSqGZnNxDQ06tCZxgCeo1jpBBRBS19/UyZjvTnQlVuiACXxnJ20wMxNdrOxm
+WgIC8zZBR2E+qB8h8q7zbiW/7LEZJoBEYq+qbLE14PZU+6YjeX4X41YZkkw9CRzhm7NhbM4zXlT6
+1G6sjV1apVnVjy2lflebHNp8OKibLDMEthEtrOyp5j/WfSgsGHfN3gg1IdcPK6mwMvNmGiYzZpqu
+HHRBy8bv9JxcN2pcTL9hEpN2zfsFR/HmvI40//xfz/KaW7ITVUHXYkZl8ZwV7NY5oKDPpAEeHrB4
+N7x2mpWi0lfJg4CNORDbx5mK7v1PGIdQjRkfRx8bAkbdFbG85ayfHy0GtBkwS+6mocsv9lC3AnG0
+nidsriaapCgIUcy3GEU39MabW2Ic8F+Blb63CsnWtn097c9W7VB53CCw3VBZhBx/+I00X9MKZVPX
+YXUiMDoYFVWddUPsb49ajUKDnqYmRLHZPTU/IGzrTt9UrPtgfhxj27B/l/PMEO9lV+X/9fYG9FUS
+dx/FvjwSEEJQe/D3ZFTVH2BMkiIg/hv4ieGwrLIHMu1KBcY79Qt97SST0KJSc+zpjdFYFaEQEdEG
+XS+wuuH1Oab+YiQ6yunVn/gzY+vhk7nH9ivgU6c9QGB0vNh7V3sttgCJaKxjH/3VeoPO9FJDbL24
+ij7ztMNhWTvzEDwcLzhsSnh+klDy3n0LFb83LiSR7s5HZULApZ0jCXdLSFjEgvQIyYHjFV1OZ8SN
+YISeNSUZzc51pu7GdtdaBkjl2B6Ol3ILqaQPEHoV08mC3mbhLCyHUNXNTjtug760vFEtFhIGtQrG
+v/JUO+cPuKPO4/FrN8H2RIUli2MIVG8j0uSzi7Jt5XnrtoeUFKOt/vN4a6NZFXX2ffDFavIGAIS3
+ZNbUx75NUkX3qhdwzd1HqsgWOszab2dzr/ymTp0jYocqhHP3aWEJ/9n+VMGXfgphOHkgt+WtblKS
+g+Xn/vH5qyCwPCwFVZavW+0p1YyijgKcmpj4R2qKqumuuREG9e1ZArvyKy0Pl9wydyFk3ItaADrD
+ZN7W3K3TcilIzRfweiSzxlf1y0tiKJx9XJlYmc+ZRpGwGF3PwtTSQusgK5Goln7makAdSplZzP5t
+bTI6FTcNnsglueUtB0dT87gBXaNYDICH/UalXO1MLjpLcdmo+cwHHaRDO7i3UL+22NQOCtobPhFJ
+ylCsGkEBU7uXHUxqRxvu0wpA1TII0PbEe4CZVcEI1sIxCZcNHujCeBsS3357Dl8Yzd68bGpBYR7J
+kAItyf01qs7fag8YQHjdhQqPSXwX8FW3vwRXT4F6PtXyyqLpYTBHOHv9dMN7edYW35a+fqYL9YjI
+YsF8XIRCaVS0M+EjO/0uBnXTtihRbmLSf0qVUi0H/UWP55utwwzyoV0lzoF/qeNt86jzcCHYCF9z
+J9zWSIH17mrHz86kQ/LyQ6k3KFv+AB42NrLRSMVQUGiui3OEvfuUebGvSvXrFtDgIK//HnE0O1D8
+gFU6IYA3YcKdd+bMze2U+8BImK10AFJBhSlR9UoK1Fe1L54Gnrq43qFEyGvJndPzzo6VHZbtXSjo
+HLNXi+iKbG2Om1yUJHpGondxsss6SeVugmmghg1VN+0No5Zx/5ASji+0t7J+zsQNd/GU3KEra7+n
+RGP42RFASTgUEWP7+LR6ixH0CoS3TlPUEVJAA4MNkgfaqg3/mUHD1FrhyHSBqebsmgzKh48dFgMu
+zikI1c4+l6z3eUGU429nUcc8WFwE27qstsk6fbgtlw2Zo3impytmulX1bMn3yOw3pgFbZHdXyDnC
+Vk1r6f2o2ImO/RuaRJBXPqFr6WSxvCUocfItSuMFzNw6huT6NkUnM2cI2IYSslV4i8v+BLIcvdOh
+ryp/zTpW1ExifrngDSWYs06K9fxhpD3aZn/qRsmd2vwOQpXd3H2LcabQJThPPMwIwmCmPskQUr8g
+F/OKCxIgtVoDSSyqNd4NPbuJBOk63BLEcUgGgNBwKYacOz1bSfItjXDp1aAkRD9hO+sJWKEHK+aj
+n12k8Bk/yHCK3JWXU5af+TH1X8crS/q197+/NJXhrwifkLWMC7uKMKTctbnKbsXH1pZC4Go63bIy
+FKHmLYkWk8Zd8lEthHYp+kkd0YbtSjEujQ4Ox4GJr6ejazoVdGehyxKeGCGu3voaBtpSU379ySYY
+6uWrmKwgEZP/r1eVLwGJ9pBf0QxYaiLoREQg0p7Rxe8f69Q5l0ySAk8/UmiiJCHeYv2PX4s7cRS3
+UJZjuLxrsGfkkfBhOaClfwU3LUHXCGAcXrtvzv69D6WTA2DPamYIZdT9SGbqaVeBG5sCd2u1CQXy
+KtYgkzP8kXFNRJdbMLTPdSPZ/oYI2/sD4nwLOwyK5KM0E9wYhiXBZXQnGmaYXjalqReY98IhVbmO
+ShAt71S8AheMxXbTziDggIrj06lfi9Y5SESReaCfm96UQ5tvjPKtCIbrFslA7ILQLl6irs2uYt8d
+w6GKFOp+kkLHxrnLskUB/qCGNJxITGIvrxXpaSUvCapZ/Lgwa0nY43b2l+EUKQkf5VA8n92gCHl2
+85NU9ZGWdP2CS5phK3u748EyGHGm6AKW1W3I6rhWWTjmxjL5B41Y2U+w63PawrJ4expuYNEgfvJ7
++RxSrBN9iBzM36GmiZxQIbUCEaaZlmhVmuBIDZzXCLoHq/ER+TJu6rxKuxAP7rvjxGvkf1z5e/DT
+K5P0ZSH4/RdbAVD63j0Xa2NLgmVJUxA2Q0vRxfYf0oLqs/QV9nJ42b/6PLytYE3Kvai0Wiy9YvXb
+vDc/xngAL5H0bealsTM/7Roz9yrYlcVVcS170QqWzm9MWMg9TzMgso84mPxJ6P6vmdgne3MAmflW
+xXUAoINlnFRpnuDNct6CNYXfs+1fy/25iBYLg7u9oVu0RkOPZbLrIeJUnN/WoBWekkhDmEukAo5j
+ABXSSPBsfZsei62lcQkBxQPsiBgZHoNuDMDATR8FlgwpDtXot4iIppWsp1mk0alCsXIIrnq8dQ2Y
+iSIayLxpZolwX3qpLmznqAOs5ErlM6UZne70OYE2AZjmNtoB+HIZ/Eo4oL5jPbvrpgDx2pi2vvWv
+SJNYvFzP1t9oe/D9TAaToM9P6g0qOJduyhI5lq2MTSbJyDjk/FcFgx0VRNn4lLa5LIW8HERDDUwG
+W081wOc/HAY9VC6YcF8j4e8JIbWSfpKebZvTkVe5AfU2iesz98HL9jfQCGHfl+qBqaJRJ8E8njdR
+vnFZj5K5RO0a5IeY/Yy3slxd4ZjUl0pcSdzVhUCvpHIuClv8/TklFe/0hlkqzEclJvm04J3WUssL
+tU9jcBCjzpyCAmTBauDYDeO/jpuumDa9fRTfXNcutRZacEuhsht/z/k91+wNq+49ujVB7QBXTKSp
+rxPgJubVUMr0ZmjYQeVFndAVcSwjpWu3k0z6VkJb+SHArn1PdYgH6E3DEGwhZNS3sVevjzPtWMIt
+PruRX0zC6RPiz6nWsMQ/V/BxWksuybiTk5UJzojBAtWTb7nmtqFXtNMIMsf8ZaQvgsPhkXRnfgOY
+pPIGKXiTsBJMigv2JDntezKLGRX8z2Rab3ELYMd4F/OzYYG9DlzQhHe76eBs5tku2nYxhWOXeGbG
+al96nF/hkP/bPUqL6YhJy3NY6AVn7jXTi7gdn+e/1YbbClA7FMLT+lFqQd1haozR9nLX9t3N0LM8
+CMfvBbvfL+bU5Kq1BgAPxfTKCvbrBGlFwRyCp79qPKqdRJNyWJTL0L6P5r+I5Ez6tOgwqLcaBcax
+7ZLl+sRdSFBoV/Yw0V18ZJLdYw11CEGhlk7Un7weqsYdezBHaYtS057FJSJF/XBXCXs/E+3/nuN6
+3S6+1I2qhKU/vLqaTNVBircJUEHrZsn647xOnUgeJkEt8fXpSqw64/DaP17SmZvcOkMGWM2yN8PS
+p+wDQhQw5wzeO4z4Tz7SxKceABJ6HbPG8w/BWjw0PL471Sdpd3vfvglOJSY7R1PBZbMWLp8awgyV
+9OrUE+oe8C+dyj58o2+Wijlv4UDqD4m35ss+++I2IoQKWnr+juGd2NOmPpdAgeYxKivfCJ34wrJA
+KTjnStOeCAjLCAgzk9kN78DkOsd9qjb+8dQEpKWR2L+qluyP+IBG4zu6p6uRbF3hEWqY5UEULQYl
+WjRaxk71xTpaKJVhDQRqeqXx3nIF6mLHzihZbFoB4WQ1C3bPEJx7ef9HAXOt1CmxGp1JjdFuVkUa
+xhhyJNw64uKbXH5TS4RDNWBu9EMo7d8SC6RO3wYASJ+76yyIazSOWINddTbr938gx3KSqMxjzCgG
+9l3oE1Ll+B1FcP283bG3cuzvRuuSdFn9qE5JChHBCBc/U+NpoH8+4JVxFXjcD7qcp/gtfR1ljI6V
+xIUcM0popTJGSxBQFJSbraKOC+bBHMJa0T/tMwP/+AiUB50sxM99WoHl/vEz1X0TiBtlyffVmGGj
+yOGVwmQTwFR06Kw+K44StLzt9dAv5fbzk84Cnq4SBbKHqSmchqZ5r37+UpUTXM3g4sktS/a1V6Kv
+9CN7SW4gSkPC1IApTH8MuM57etu1bopdbZQ/MSLf1EoRssL/l4o/DiCU6PH9oqw20T6PMWi2DC+M
+eLDtydwG6T4gMGDe8OkQyXgHCjfd2WNrP3cgVvlanOvvvqdoaQ5Mm7lxQv0xm5dE4vaXz9dWQYEY
+2goq18Y5NSDjt/xNFTZUmKN3YYlp8IkSClKFcQSPUjFT8xlfeWIaRbDsONSnlwD4eqBKluobbmTR
+ICrpGNXQxw6M+2m754rQ5cN87oUi/0J8+4cNI0XYy1A4slABsvYKdjg1088wgoFNvGf8O96+NA8w
+PY2WxCNZeSDz6u6Y/XpBR9hNTFuTqt8HpR9EisCLHaEnuQJgMVDZhwZnTxcunDfZZNCE4y/ozwgK
+BbFKCxzfa5e10HvHmFcEq4+GeXJpkfS77AdWd/5Ap/oJYFP4xOk7CADBwSeJ7Aj+45bmUdTgHscV
+YYzFKYqD2MitPfy60NAhc4FOuhgPW6XEz6GDxApIY9S4PB8iqXoje7l8UnAcjDRlpEAjg7lSTCk6
+pPiClgIJVXLf4STsVG8p61qfbZl8Lhfiv1E9JBUp7c8m949TaFjcokBaCgEXnokaFOllEe5D5DSs
+w2OajiAON8lyoY6cg80bTbQLOZDcPz4FbGjFuYZa+ugjXYA183lHs24lpqEWwx6ZzOlL4zEsDsU6
+Voe/SP4dD5UGXzngjWozzc1EnfpbAvBgguYQWnLI6JOrax3X20IoIRAJVQlhRvj+V4ehpt1gYkPM
+QEqPNDqJisLw1bDeJAZrJNc/dNriSzo6VE8O7cAALnmUq2hkBw1KFqBO1Zsf6sOYDxIMBLhSCSds
+HWdO5n/LK06BnzxX3YnTl3Q10BK3oSj/nFkJRsCa8cSo+5bJTPzW829PnbaRma3/LcoF5ktzLC7X
+3qiD3TdBnQc8BES+wLva9QmS8ITcyz8079vxbG7ldvGZKqCruXuqTArFK7FEOfUSAL1fU1o06dlY
+2F/m9YPsNuMYZF59XmLatW9r59LWNOpb2lAoTWFupoB7quAwp3uSje2OqUp013bfKd2vDE/+ECcm
+2KoYPMGSSz6hdPyEtBx2oX1SfKr4zhz/ifOWfs3y94MEqI5y5IvfZD0r60qp/L5wxhjgFaKZr02j
+gntum65nVJ1CLjul5nlr286/OLUrnQq0fX1bU6Dd41wnMSpqCgVssihu/cBWj+Ir1aTXheNnis9u
+A3RHDvXbJ77BZgYNU8XBtDAkX6XMb/GZ4ZklGhMkBzW3VT5dAYoozFX0GIY29WngxGcHf2bXANx/
+6X0Kuvz8bn1DVbpPoEJkxoMD1mXj/g5AGD2nOCCfqQZ/2UHY6Fhi2lg2IX48l27DSK0AyoOAFspX
+oH4kuXwT/dMLs12AJgEmH9AWjug7wQW3zttU36Wlgz8pMnKQzILqLSJlMOPJGRTuJ/FN8jsBWSdN
+H7QISpVuKU4tmE7msmCgMvqwVX+fP8ajLW+95aLGTsbzyOsfbrC4FeS/1zW20eXM8i5dhGwnBXve
++O9UquAXxNL+dv5/D4gh1vo4RjlVlmnVyp0XerqM6b/LxVsrsYSEDs6s21yM3gpVBBJ5y4XDmyX3
+/yyYjPkusLD8t/OSbt927CchMRsOdaILMdSp7V/B0CoU7UZ/g+6u+lh3uuQT/m/ajOIlvJ5QKlvg
+8kiKmopeb7vFWvy2KCaTm/nRu1cc2OaTBsUd+iym5Z6WH7AvmpkDyw85Cre7OF63RTtxIur0XEO3
+WpK5+z7MAHMDEH10jwUsOb9FbRDHFpi32Rs3/olHwFxPWz5RH2BLFfufHLyQPe7aW492cOPZocoB
++NEev1xoZWAI/r4O2KlqEmfqwp007G5LF/43qyEeXAxXTBthzAa8PIG6x6IN2CWs2fE6YHTsFOOj
+hDFLbUV1wUoItYlik7l/k6SvLRL5oIVJ5k4MOdaH48wZUOC5sXN9G8MEyZ0BI6h6v/x9wBsCbmzj
+b8eFdoNhzvs/YWgdCs6zPYY8WiKxf9ifQ56NAY2jmuftuiDlb8kXf6D593O+4C6izwrTjs+rfCSP
+pWRObTOPXzs11sD4HpzDeCg1YQ4vYmDkApAFBhlJdb++zhBIemD7T0M7EdFyBeFwzlkrZbMgvNrX
+LXR9RiUNa1nx2hAlgdhnLCrxTtNmW1EjlHMEAAbGMDSuyHMDe6eUU49Nmw7sGARj7Tp6P9LoWhMa
+pQVVVU8+wU6brB4kYcn1I/+Qa1AmaUxQYBvcYXLJLL/qGB00G6qFb9k8R91Kh3I/tzTHeG+tdItX
+Jzy4sG0cBQ7Pf55QElKpqEjDfZBYrMBs/U5YAF04GVnu17R/hpIjNvmA/lD3dJXz6GqjFqqJdd1W
+GiUETJ09qH0gYqm1zM7R53LIr76jDIMEXAvYq2PWsPmMXKL7uOWi0NeOjnURigVaZWiXsLMEXZPm
+pGF4TgctCa450EMdVxsbiOr9KamEicyjNjrwalqlQNX5edLrZpxW3sYJBd2ZIIrdy+FOPHCGVA2o
+i4kFdOJr4bGPAu96qcv6bgTQ8uxEEP4BfQCsvQdvabI18odZp87UeFExjFcrPIbYDOAze5ASTok4
+hyxNBcwFqP6BUg0wpY75d8h9LyF5q42SbreTAky3kxxjRWctD3a40/G4PuQi+qNgUxfjivgT7K2I
+57SYVzgqf7McdJ1tb4velvDSrIMUnKrOyx/mPl0Fn5Vz68nbFMsUPkP5X5FshTPdd09G2kO8OgIX
+qRIkSmnNVYyl1vd0OOdW0zh6hsuPakbm9YJWI3HoDm4QE9yu3gLQR2n5fiO6CrgVXR7LvY/dJm5A
+VRmA3VVJPMzvN2j0M40pTxhvM5pnSDnjbIhclPQoU+rZGdT0hQ8BwsE18UeE8c+NuW9g30HLah//
+XvEuUFh4cQ+Tlicdl9aIgqNSIwBwCZzIVbjYrXJPLBxaZ5I8yqpb3U/6Zsk9bjUS5weZNjqkI/ET
+Xu9uSdrQXuiNwM9SVaDHPEhK90Uxl7SeFg5xq/2Vjf5eecTnrusFgqlthch/Rk885e245LuAUotl
+sy8SJSVbpowUMh/gcCAdWVNG7I9fu8z/l4xPW+gqHDmpIUjJ1n86uLV/6KFZNZGcfNTipQ2lRVC3
+YuIMiAkIfMAcn3d7z8mvwHs4TnaYGobODptPoMFyebp3p+0S31a3ZE4kNoLIFQmwzZKocL82CXBH
+AxzJDMeWeu7wbqgX1MyEVJMAHRvq0sCzUr/nU34rO1ggX/RiLGQh4zzuHli5iI+aFg1F97xpkGtO
+hJwzGKr7P00mxbnqDIMnbNCuiW0sIJ/dAobJ4uJPLqSaCGEPG5hIGO3kkSW6VuceiAtYVcSfQOf1
+D46SV7wNEmXaPulpobVgNoIGC+Az0HsWPpXMDen6one9+hfA3h5IBXCWewd26hFokNwuTsMVT3gq
+6ASxbDk0RLLHilklpcqSHArCGPJZMw/QSsww31Bt00Kev1qVL6rW3iRJijll6QOtyo88q50/LqPf
+5O62eeIZFSDoXzuZarW4XtDUsB07V5cRJ6PLZLKl8ai3LrZCLyQc54AVNoS31AERsKCBS9Y2LzQ0
+um4YxcV7Y1q5qAzC4xOAOvbwD13Z/6x+CWqQClRTr86JJjpqqPD7nWYxcGJad25hfM8Xed/t9N/W
+TMFecbM0tL1kcWaI9OJK45nSHY698DixrkRxYN8Rlt4B6LconTwxkAYipuwqGYMNGFy07QANf1im
+8CcyQyVLtblylSDgc1PQXfhUv65bzquQW2Ka3cKWZNzrdZPivtO0A6zLX9qVOSFo0xEdLKeboPTO
+Tu4oq12yxP8eWuG+7a9E8D1VyUd5D4/N4oRkPLO76RGl8JzB4atMgF/nQzCs8BcpQp64+8EUZbwQ
+Fwy5I2Q9t+OhvDmpQ4nEIuFC6egsL6HLE/FrN1wVnLLmsMODPgURfmbOgveoEvHyvlnypWOLFQbX
+luXhCp7soUpdkt59qLzx00jbQsko+RzIZzjOSqdzqB8lX2E9/E99DjeI2YbfAVWo/HHMvYEp+u19
+5FjeD94jBkNKTV7xpZMrw22vTP1hDqdLVNuLYkOufmniQFVkPWOfbAxv9Lvj8Dw1nipvDOk03Dkw
+t4RG6WqrB7UZECgxWmcUQBwXbIiIByyCMRkE3bZTbB35cYtapB3vJOrnW6gtDB+by5XQjgolbAwJ
+jdc1/lssw5/VTzhC6+omwpJuy4/yuCnlkLsnZA0MafLOW1R0IUsv43035W8FLM3xSP7Gepzo1Qzz
+BVgoLvns5XjQ20lj0QJL6YDjqn0eOx7HSSH0nioJOamYgAg0eNERZ1taNvDS1SRu8EBKbAb4XucS
+msyfHHmXoeHC1mUPBI0rXdrDAAVJ2VALz3ZNuNhoISUYLmZdnZhG2ECTp0vPQT3DxaZWBwQlz6rM
+NgFm8WoSEbVh7YJmIhEBzbch3uaQfLxuHeC67+8UpzBgo7meesjxEmVIPoIw+mysRkwPaKoVTMkM
+WuyldeEDZMvUbToWgf6OWfB8e1m7vwCJuK3mMg0BWT+g8gxSnm+QpYEdHf4bNsyzyg6yXbtn8wuc
+Krgy/0cshCHXLOMpVFxM3PUBPxkh8FDNg63vVLdSxd5+Vvquv88sRy1B4oBCGDRXX73+zvxFvo2l
+eEu/ZiRBywKxKE9MYC/BblS2zYE5caZtYdZKZtyVAdbdOBjuqSnqhgQDPAR3iQedlFCGSB2dx/ef
+03SHLTbvYoWlC2EVvrQQI9hzdcZihpQl3GoCReBNffiCkpI2oyfb/sO3ncSdyFha+QwHacgiTXpi
+tfiOCpE9OOQ7ymRqEyqJPaBJeW2TFsYW1eteHBr1Wx2/tVnKdpl4q/GuBmyLJaOvuPl/duQZqGnB
+s8EtKcjBHGdVO5LbYu3hoJR3unaFRiYhJNmHyD3vHC+kqxTym81EoCwrVcNdMm7a2Tim8IU8bZhB
+C3DU3qnD4kiWz1lkSsqByo9PC3XHh5JaCIzofoK53/igGp/HDfPGNsWt4L/4MJrLP00PD+z/RvgE
+6gWazGvwzFtek83UqaR82ThVo+g6asg7wlFinyvuw2aS5hVTCw9HszMJTiDLCb7qpWCmGEMdfgCV
+oeQmDl4rbLzwMtOU/pKzUjp4x6IKQa/b7E17jAaLaSVQLYIyJZ5yNrSobhf8cS5aGCRy3wqvHWiV
+Ex81Mj7hzqO+RWykPfwMzuOlHCAT2yuW3aNKFZe6gpPMcBFwueysWQwl6lRxCA4YA39lZx2greqr
+0SpMqMGVicllPsWVtsSkW1WGEf2WMPIymRFz1+/mRpdXnr1K8XJtdM/9wwP/a1WAvC/s91p082c4
+vviamrArHApE/Yx/ENvB/hC+cB00fn8CUzJmv8Ww1qOIq2vYQ7V1XyRYMPiAjMqRaelZmxGAFos9
+Wz+U4kxvRP58iT0cP5gan8n4CnROa9+Ver5fHGa+9AR9soeEHWwk4YaZgZ/R6ly0wo6nQbrdhnLX
+sPGocH0/nMFC/Ysap/kRphV0uA8IAc6IEVtsTpfQD0se5M4AxKl+6RLQmThMABjz+olBaRg5Avc5
+6VL4heTX77wzA720JPcaiV7lb1ifDR2prmpVM+mUW+5hLboN7sCGTwr1gJ3kOm9zry5PEV+QgBhO
+T95QZahebcS6RABIyQJXN2Wg3W5gFiNvKmO/VXRG3wHp/4XjQWuN+Ed2yfpuYPLjKhMhGwMjK9iX
+So0cZU62Wk18xcJs2UU/kFuSL2ydZnNz2Buq6g4jN7sgCc5uSulnsGreydKULMlK+20MAjsPTqG0
+dS5oRc3f687vZnd9WIvivqC2SyZlzqYY2AtCYMoTFKUAy0Bw/cq+P+vOjp+muOOEuBMrXiZ8ADT4
+DJHGmak0BfVlCdTVAJg2n6ZVtGfUPkFHe+9TpghRsDx09g+WhB1rkUwkIkM98HbfCnaRTWhFLe2m
+M1eqn7SCchPCXGb3/w3ZGqUL8gE2FocBRe/Cx+nt1KttqPca8enMpHNb5XNvSjHieROdqWV+pBT2
+vTKYvbtZWA7wEAsSza6VPQMG1m+AtHTbUQlxrGwEwFZicJrJEIJjUQkQq3AAntCvO9wxC0P3eaC8
+oiI7cIVgghzBo4HNHT3gGI66KAnc9mLTJZ8g6SRRqdnpqZq2vKbjvZ2yVGmC9OB3uMJL5BQ/paMr
+JA0cdrnS5HbYmbmfqJ6mHJNVNW2e8Rq5wPu1uChpU9Gm6Bt4lKGXrDgejIXbLUdCh1uTfFPw6lTd
+Xxrq3utjiwsIrjWbYtI8ZjvGnZdhGZv9WW2TPIs0/9/vYJklHNuGANZE78YrMTwb/3z44JBIx0tb
+urSMSb1Ejh4VJ9y8a3kjIZCicIrBqYgIxGi2WrTVNtHUFSaFaAE5QPpr7x8qFe5rNYuApdo/3Acf
+UuhOvS9BbaMsfool4dIYwzSLxQfU2i5zYB0dIzCj+Xqt1SBLXEC/ASCJomIQ0strytaA1PC4fJtm
+qejp1Vkjc9COGP40ct1JYJ6CuPR6yJqL3kyeAJ1krr67Dck4YHj1xOCKLIxSZvTtuIGBPCVbPw6s
+b5yWynAqEBnMULYSi4a93toLODdOlWsJeHwQnDaDCFJBUxLEoejTHg/5PkG/gSf+VpO7x1nfjYyp
+SNhwM3rX6t/iDGozAOpwnItj75Sl02JUIZvmIuCX4GHduQa88556zaXEQJjBZXYRzL+8ZSZgSrPB
+mCqvEXTK3KNxUrs8IP21cn8jM8PSAkflskkajTaTthHlxVaNfp0Z3up0XY9oML2afVW97Z4mVLIO
+PK800g5KYjy1eUTW0BcybodkOKbY2Kg+qmRyvvBzbjLolrsRCQoEbr70

@@ -18,12 +18,3 @@
  */
 
 $installer = $this;
-
-$installer->removeAttribute('order_payment', 'bbs_transaction_id');
-$installer->removeAttribute('order_payment', 'bbs_authenticated_status');
-$installer->removeAttribute('order_payment', 'bbs_authenticated_with');
-$installer->removeAttribute('order_payment', 'bbs_issuer_country');
-$installer->removeAttribute('order_payment', 'bbs_issuer_id');
-$installer->removeAttribute('order_payment', 'bbs_authorization_id');
-$installer->removeAttribute('order_payment', 'bbs_session_number');
-
