@@ -156,37 +156,41 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
 	
 	public function getBBSTransKey()
 	{
-     $this->getCheckout()->setBBSTransactionId(uniqid());
-    
-     $transKey = $this->getApi()->
-                        setCurrencyCode($this->getQuote()->getBaseCurrencyCode())->
-                        setTransactionId($this->getCheckout()->getBBSTransactionId())->
-                        setAmount(sprintf("%0.0f",$this->getQuote()->getGrandTotal()*100))->
-                        setOrderNumber($this->getQuote()->getReservedOrderId())->
-                        setOrderDescription(date("d.m.Y")." - Order ".$this->getQuote()->getReservedOrderId())->
-                        setCustomerEmail($this->getQuote()->getBillingAddress()->getEmail())->
-                        setCustomerPhoneNumber($this->getQuote()->getBillingAddress()->getTelephone())->
-                        setSessionId($this->getCheckout()->getQuoteId())->
-                        setInternalGUI($this->useInternalGUI())->
-                        getTransKey();
-                          
-    if ($transKey == false) {
-      Mage::throwException(Mage::helper('bbsnetaxept')->__('Error receiving key from BBS: '.$this->getApi()->getErrorMessage()));
-    }
-    else {
-      $this->getCheckout()->setBBSTransKey($transKey);
-      if ($this->useInternalGUI()) {
-        $info = $this->getInfoInstance();
-        if (!($info instanceof Varien_Object)) {
-          $info = new Varien_Object($info);
-        }
-        $this->getCheckout()->setCardInfo($info);
-      }
-	    $order = Mage::getModel('sales/order');
-	    $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
-	    $order->addStatusToHistory('pending_bbs','Redirected to BBS Payment.',false);
-	    $order->save();
-    }
+		
+    $order = Mage::getModel('sales/order');
+    $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+    if ($order->getPayment()->getStatus() != self::STATUS_APPROVED) {
+		
+	     $this->getCheckout()->setBBSTransactionId(uniqid());     
+	     
+       $transKey = $this->getApi()->
+                          setCurrencyCode($this->getQuote()->getStoreCurrencyCode())->
+                          setTransactionId($this->getCheckout()->getBBSTransactionId())->
+                          setAmount(sprintf("%0.0f",$this->getQuote()->getGrandTotal()*100))->
+                          setOrderNumber($this->getCheckout()->getLastRealOrderId())->
+                          setOrderDescription(date("d.m.Y")." - Order ".$this->getCheckout()->getLastRealOrderId())->
+                          setCustomerEmail($this->getQuote()->getCustomerEmail())->
+                          setCustomerPhoneNumber($this->getQuote()->getBillingAddress()->getTelephone())->
+                          setSessionId($this->getCheckout()->getQuoteId())->
+                          setInternalGUI($this->useInternalGUI())->
+                          getTransKey();
+	     	                          
+	    if ($transKey == false) {
+	      Mage::throwException(Mage::helper('bbsnetaxept')->__('Error receiving key from BBS: '.$this->getApi()->getErrorMessage()));
+	    }
+	    else {
+	      $this->getCheckout()->setBBSTransKey($transKey);
+	      if ($this->useInternalGUI()) {
+	        $info = $this->getInfoInstance();
+	        if (!($info instanceof Varien_Object)) {
+	          $info = new Varien_Object($info);
+	        }
+	        $this->getCheckout()->setCardInfo($info);
+	      }
+		    $order->addStatusToHistory('pending_bbs','Redirected to BBS Payment.',false);
+		    $order->save();
+	    }
+	  }
     
     return $this->getCheckout()->getBBSTransKey();
 	}
@@ -409,5 +413,16 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
       
       return $message;
     }
+
+	  private function dolog($logline)
+	  {
+	    $logDir = Mage::getBaseDir('log');
+	    $fh = fopen($logDir."/bbsnexaxept.log","a");
+	    if ($fh) {
+	      fwrite($fh,"[".date("d.m.Y h:i:s")."] ".$logline."\n");
+	      fclose($fh);
+	    }
+	  }
+    
     
 }

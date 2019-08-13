@@ -291,8 +291,8 @@ object(stdClass)[850]
    public function validate() {
    	$regcode = $this->getRegCode();
    	$carray = explode(".",$_SERVER[base64_decode('U0VSVkVSX05BTUU=')]);
-        $d = strtolower($carray[count($carray)-2]);
-
+    $d = strtolower($carray[count($carray)-2]);
+    
    	return ($this->magic(${base64_decode("ZA==")},$regcode,$d) == ${base64_decode('cmVnY29kZQ==')});
    }
    

@@ -58,7 +58,7 @@ class Trollweb_BBSNetAxept_Block_Redirect extends Mage_Core_Block_Abstract
         $html = '<html><body>';
         $html.= $this->__('You will be redirected to BBS NetAxept in a few seconds.');
         $html.= $form->toHtml();
-        $html.= '<script type="text/javascript">document.getElementById("BBS_WithGUI_checkout").submit();</script>';
+//        $html.= '<script type="text/javascript">document.getElementById("BBS_WithGUI_checkout").submit();</script>';
         $html.= '</body></html>';
 
         return $html;
