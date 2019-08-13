@@ -42,6 +42,15 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
     protected $_canUseForMultishipping  = false;
     protected $_canSaveCc               = false;
     
+    // PROD URL
+    const WSDL_URL_TEST  = 'https://epayment-test.bbs.no/service.svc?wsdl';
+    const QWSDL_URL_TEST = 'https://epayment-test.bbs.no/TokenQuery.svc?wsdl';
+    const GW_URL_TEST    = 'https://epayment-test.bbs.no/terminal/default.aspx';
+
+    // TEST URL
+    const WSDL_URL_PROD  = 'https://epayment.bbs.no/service.svc?wsdl';
+    const QWSDL_URL_PROD = 'https://epayment.bbs.no/TokenQuery.svc?wsdl';
+    const GW_URL_PROD    = 'https://epayment.bbs.no/terminal/default.aspx';
     
     /**
      * Get checkout session namespace
@@ -161,7 +170,8 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
     $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
     if ($order->getPayment()->getStatus() != self::STATUS_APPROVED) {
 		
-	     $this->getCheckout()->setBBSTransactionId(uniqid());     
+	     $this->getCheckout()->setBBSTransactionId(uniqid());
+	     $order->getPayment()->setBbsTransactionId($this->getCheckout()->getBBSTransactionId());     
 	     
        $transKey = $this->getApi()->
                           setCurrencyCode($this->getQuote()->getStoreCurrencyCode())->
@@ -187,7 +197,7 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
 	        }
 	        $this->getCheckout()->setCardInfo($info);
 	      }
-		    $order->addStatusToHistory('pending_bbs','Redirected to BBS Payment.',false);
+		    $order->addStatusToHistory('pending_bbs',Mage::helper('bbsnetaxept')->__('Redirected to BBS Payment'),false);
 		    $order->save();
 	    }
 	  }
@@ -202,7 +212,17 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
 
 	public function getBBSUrl()
 	{
-	  return $this->getConfigData('gw_url');
+		if ($this->getConfigData('test_mode')) {
+      return Trollweb_BBSNetAxept_Model_WithGUI::GW_URL_TEST;			
+		}
+		else {
+      return Trollweb_BBSNetAxept_Model_WithGUI::GW_URL_PROD;			
+		}
+	}
+	
+	public function getPendingTimeout()
+	{
+		return $this->getConfigData('pending_minutes');
 	}
 	
 	public function useInternalGUI()
@@ -226,8 +246,19 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
         $bbsClient = Mage::getSingleton('bbsnetaxept/api_bbs');
 
         // Merchant ID
-        $bbsClient->setMerchantId($this->getConfigData('merchant_id'))->setMerchantToken($this->getConfigData('merchant_token'))->setLanguage($this->getConfigData('gui_language'));
-        $bbsClient->setWsdlUrl($this->getConfigData('wsdl_url'));
+        $bbsClient->setMerchantId($this->getConfigData('merchant_id'))->setLanguage($this->getConfigData('gui_language'));
+        if ($this->getConfigData('test_mode')) {
+        	$bbsClient->
+              setMerchantToken($this->getConfigData('merchant_test_token'))->
+              setWsdlUrl(Trollweb_BBSNetAxept_Model_WithGUI::WSDL_URL_TEST)->
+              setQueryWsdlUrl(Trollweb_BBSNetAxept_Model_WithGUI::QWSDL_URL_TEST);
+        }
+        else {
+          $bbsClient->
+              setMerchantToken($this->getConfigData('merchant_token'))->
+        	    setWsdlUrl(Trollweb_BBSNetAxept_Model_WithGUI::WSDL_URL_PROD)->
+              setQueryWsdlUrl(Trollweb_BBSNetAxept_Model_WithGUI::QWSDL_URL_PROD);
+        }
         return $bbsClient;
     }
 	
@@ -266,7 +297,7 @@ class Trollweb_BBSNetAxept_Model_WithGUI extends Mage_Payment_Model_Method_Abstr
               if (empty($newOrderStatus)) {
                 $newOrderStatus = $order->getStatus();
               }
-              $order->addStatusToHistory($newOrderStatus,'BBS Authorization successfull.',false);
+              $order->addStatusToHistory($newOrderStatus,'BBS Authorization successful',true);
               
 		          /**
 		           * send confirmation email to customer

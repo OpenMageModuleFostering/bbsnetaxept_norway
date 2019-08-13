@@ -280,6 +280,38 @@ object(stdClass)[850]
       return $result;
    }    
  
+   /**
+     * Check BBS Transaction
+     *
+     * @param String $TransactionId
+     * @return Trollweb_BBSNetAxept_Model_BBSNetterminal_Result
+     */
+   public function checkStatus($TransactionId) {
+   
+     $result = false;
+     $bbsClient = new Trollweb_BBSNetAxept_Model_Api_SoapClient($this->getQueryWsdlUrl());     
+     $params = array(
+                "merchantId"          => $this->getMerchantId(),
+                "token"               => $this->getMerchantToken(),
+                "transactionId"       => trim($TransactionId),
+                    );
+
+     try {
+        $soapResult = $bbsClient->Query($params);
+        if (is_object($soapResult->QueryResult)) {
+          $result = $soapResult->QueryResult->Summary->Authorized;
+        }
+      }
+      catch (Exception $e) {
+        $this->setError(true);
+        $this->setErrorMessage($e->faultstring);
+        $this->setErrorCode(99);
+        $result = false;
+      }                    
+      
+      return $result;
+   }
+   
    public function Result() {
      if (!is_object($this->_result)) {
        $this->_result = new Trollweb_BBSNetAxept_Model_BBSNetterminal_Result;

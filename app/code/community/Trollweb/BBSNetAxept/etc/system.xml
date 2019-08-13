@@ -4,11 +4,11 @@
 		<payment>
 			<groups>
 				<bbsnetaxept_withgui translate="label" module="bbsnetaxept">
-					<label>BBS Netaxept, versjon 1.5.3</label>
+					<label>BBS Netaxept, versjon 1.5.5</label>
 					<sort_order>670</sort_order>
 					<show_in_default>1</show_in_default>
 					<show_in_website>1</show_in_website>
-					<show_in_store>0</show_in_store>
+					<show_in_store>1</show_in_store>
 					<comment><![CDATA[
 <div class="custom-options">
 <div class="box">
@@ -40,7 +40,7 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 								<sort_order>1</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
-								<show_in_store>0</show_in_store>
+								<show_in_store>1</show_in_store>
 							</active>
 	
 							<title translate="label">
@@ -49,7 +49,7 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 								<sort_order>2</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
-								<show_in_store>0</show_in_store>
+								<show_in_store>1</show_in_store>
 								<comment><![CDATA[Tekst som vises på BBS betalingsvalget i nettbutikken.]]></comment></title>
 
               <logo translate="label">
@@ -73,27 +73,18 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 								<show_in_website>1</show_in_website>
 								<show_in_store>0</show_in_store>
 								<comment><![CDATA[Tilgjengelige korttyper på din konto. Husk at hver korttype krever avtale med BBS og kredittkortinnløser. VISA og MasterCard er vanlig for de fleste.]]></comment></cctypes>
-	
-							<gw_url translate="label">
-								<label>Gateway</label>
-								<frontend_type>text</frontend_type>
-								<sort_order>9</sort_order>
-								<show_in_default>1</show_in_default>
-								<show_in_website>1</show_in_website>
-								<show_in_store>0</show_in_store>
-								<comment><![CDATA[Skal normalt ikke endres. Endre https://epayment.bbs.no/ til https://epayment-test.bbs.no/ for å kjøre test modus (krever TEST merchant passord).]]></comment>
-							</gw_url>   
-	
-	            <wsdl_url translate="label">
-	                <label>WSDL</label>
-	                <frontend_type>text</frontend_type>
-	                <sort_order>10</sort_order>
-	                <show_in_default>1</show_in_default>
-	                <show_in_website>1</show_in_website>
-	                <show_in_store>0</show_in_store>
-	                <comment><![CDATA[Skal normalt ikke endres. Endre https://epayment.bbs.no/ til https://epayment-test.bbs.no/ for å kjøre test modus (krever TEST merchant passord).]]></comment>
-	            </wsdl_url>
-	            
+
+              <test_mode translate="label">
+                  <label>Test modus</label>
+                  <frontend_type>select</frontend_type>
+                  <source_model>adminhtml/system_config_source_yesno</source_model>
+                  <sort_order>10</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>0</show_in_store>
+                  <comment><![CDATA[Sett denne til ja for å kjøre mot BBS sitt test system.]]></comment>
+              </test_mode>
+
 	            <payment_action translate="label">
 	                <label>Betalingshandling</label>
 	                <frontend_type>select</frontend_type>
@@ -125,14 +116,26 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 				          <show_in_default>1</show_in_default>
 				          <show_in_website>1</show_in_website>
 				          <show_in_store>0</show_in_store>
-				          <comment><![CDATA[Ditt unike kunde-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Du skal skrive inn PROD passordet såfremt du ikke ønsker å kjøre test.]]></comment>
+				          <comment><![CDATA[Ditt unike kunde-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Her skal skrive inn PROD passordet.]]></comment>
 				      </merchant_token>
+
+              <merchant_test_token translate="label">
+                  <label>Merchant Test Token</label>
+                  <frontend_type>text</frontend_type>
+                  <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                  <sort_order>14</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>0</show_in_store>
+                  <comment><![CDATA[Ditt unike test-passord fra BBS. Fås på SMS fra BBS. Merk at BBS normalt sender både TEST og PROD passord på SMS. Du skal skrive inn TEST passordet.]]></comment>
+              </merchant_test_token>
+
 	
 				      <use_gui translate="label">
 				          <label>Bruke BBS sin betalingsside</label>
 				          <frontend_type>select</frontend_type>
 				          <source_model>adminhtml/system_config_source_yesno</source_model>
-				          <sort_order>14</sort_order>
+				          <sort_order>15</sort_order>
 				          <show_in_default>1</show_in_default>
 				          <show_in_website>1</show_in_website>
 				          <show_in_store>0</show_in_store>
@@ -144,7 +147,7 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
 				          <label>Språk på BBS betalingssiden</label>
 				          <frontend_type>select</frontend_type>
 				          <source_model>bbsnetaxept/BBSNetterminal_language</source_model>
-				          <sort_order>15</sort_order>
+				          <sort_order>16</sort_order>
 				          <show_in_default>1</show_in_default>
 				          <show_in_website>1</show_in_website>
 				          <show_in_store>0</show_in_store>
@@ -161,13 +164,23 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
                   <comment><![CDATA[Meldingstekst som kunden ser når han eller hun velger betalingsalternativet BBS.]]></comment>
               </redirect_text>
 
+             <pending_minutes translate="label">
+                  <label>Betalings avbrudd</label>
+                  <frontend_type>text</frontend_type>
+                  <sort_order>20</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>0</show_in_website>
+                  <show_in_store>0</show_in_store>
+                  <comment><![CDATA[Antall minutter før en ordre automatisk blir merket som avbrutt dersom kunden ikke har kommet tilbake fra BBS betalings siden. Skriv 0 for aldri å automatisk avbryte en ordre.]]></comment>
+              </pending_minutes>
+
              <regcode translate="label">
                   <label>Registreringskode</label>
                   <frontend_type>text</frontend_type>
                   <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                  <sort_order>18</sort_order>
+                  <sort_order>30</sort_order>
                   <show_in_default>1</show_in_default>
-                  <show_in_website>0</show_in_website>
+                  <show_in_website>1</show_in_website>
                   <show_in_store>0</show_in_store>
                   <comment><![CDATA[Din registreringskode fra Trollweb. <a href="http://www.trollweb.no/bbs/getregcode">Klikk her for å generere din registreringskode helt gartis</a>.]]></comment>
               </regcode>
@@ -188,7 +201,7 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
                   <label>Ordrestatus på autoriserte ordrer</label>
                   <frontend_type>select</frontend_type>
                   <source_model>adminhtml/system_config_source_order_status</source_model>
-                  <sort_order>20</sort_order>
+                  <sort_order>40</sort_order>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
                   <show_in_store>0</show_in_store>
@@ -198,7 +211,7 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
               <allowspecific translate="label">
                   <label>Tillatt enkelt-land som kan bruke BBS</label>
                   <frontend_type>allowspecific</frontend_type>
-                  <sort_order>21</sort_order>
+                  <sort_order>41</sort_order>
                   <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
@@ -208,7 +221,7 @@ Telefon <b>+47 47230804</b> (0900-1800, man-søn)<br />
               <specificcountry translate="label">
                   <label>Spesifiser hvilke land som eventuelt kan bruke BBS</label>
                   <frontend_type>multiselect</frontend_type>
-                  <sort_order>22</sort_order>
+                  <sort_order>42</sort_order>
                   <source_model>adminhtml/system_config_source_country</source_model>
                   <show_in_default>1</show_in_default>
                   <show_in_website>1</show_in_website>
