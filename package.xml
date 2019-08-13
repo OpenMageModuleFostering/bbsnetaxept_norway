@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+    <name>BBSNetAxept_Norway</name>
+    <version>1.3.2</version>
+    <stability>stable</stability>
+    <license uri="http://www.trollweb.no/bbs">GPL License</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Payment gateway for BBS NetAxept. Let your customers pay safely by creditcard and BankAxess/BankID. Module Certified by BBS.</summary>
+    <description>This magento extensions enable you to receive cerditcard payments through BBS NetAxept. BBS supports all major creditcards and also the Norwegian BankAxess so that your customers can pay directly from their bank account if they have a valid BankID.
+
+Please remember that you need to sign up with both BBS and Teller. Sign up forms are available directly in the Magento Admin and Payment Gateways, under the BBS NetAxept Settings.</description>
+    <notes>This extension uses the BBS NetAxept API.</notes>
+    <authors><author><name>Trollweb Solutions AS</name><user>auto-converted</user><email>post@trollweb.no</email></author></authors>
+    <date>2009-10-27</date>
+    <time>10:43:53</time>
+    <contents><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="bbsnetaxept"><file name="form.phtml" hash="d61295f247bccb512608c1f9dec45876"/><file name="paymentinfo.phtml" hash="4f3b4e6e0d39720429c9b7f6afe87db3"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="default"><dir name="default"><dir name="template"><dir name="bbsnetaxept"><file name="form.phtml" hash="d61295f247bccb512608c1f9dec45876"/><file name="paymentinfo.phtml" hash="caf32bb1ed9343f02694f0ee035072b5"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Trollweb_BBSNetAxept.xml" hash="f3b2219f86e88ada812f5bde8ae6859c"/></dir></target><target name="magecommunity"><dir name="Trollweb"><dir name="BBSNetAxept"><dir name="Block"><file name="Form.php" hash="23ad0c0aef807a5981b037398b6a4464"/><file name="PaymentInfo.php" hash="c21ed43d6cc2167ca4a00cc429bd855f"/><file name="Redirect.php" hash="ed1033195a226464f52caea97d5ec86b"/></dir><dir name="controllers"><file name="ReturnController.php" hash="b58d8505a3bc573b1ccac041555e75fa"/></dir><dir name="etc"><file name="config.xml" hash="adb44ef6cacacaaea9d44d408283ef45"/><file name="system.xml" hash="26e0e6871c11aaf289a2404b4552658d"/></dir><dir name="Helper"><file name="Data.php" hash="223402a81a73076db515f8b5f320a010"/></dir><dir name="Model"><dir name="Api"><file name="Bbs.php" hash="b105be7b0a1bdd4aec1bf66f5a60871b"/><file name="BbsRequest.php" hash="1d89c8369032ba4ba79c89828770da56"/><file name="SoapClient.php" hash="0bea5c38b2402fe854c092389aae9a21"/></dir><dir name="BBSNetterminal"><file name="Debug.php" hash="4c938bc2a079719a111478c9d24adf77"/><file name="Language.php" hash="8bafa1d208ee1571920eebfdf98a6745"/><file name="PaymentAction.php" hash="60efa6278b77fcd56d28d81e19617ccc"/><file name="Request.php" hash="b9353f6c6ca06349928aa418cf943744"/><file name="Result.php" hash="2faf0b6cc4fb00b00cbec7a48f4dca07"/></dir><dir name="Entity"><file name="Setup.php" hash="b1f7dd643f9c09e95a30681552c0ff19"/></dir><file name="WithGUI.php" hash="3cd7a342aed7e55542da29519fb98a94"/></dir><dir name="sql"><dir name="bbsnetaxept_setup"><file name="mysql4-install-0.1.0.php" hash="192d66bfd2c25be9e86a4e6d9d4764a6"/><file name="mysql4-uninstall-0.1.0.php" hash="5393aadd53afafee1392949fe6a4511a"/></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies/>
+</package>

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Trollweb_BBSNetAxept>
+    	    <version>1.3.2</version>
+        	<depends>
+        		<Mage_Payment />
+        	</depends>
+	    </Trollweb_BBSNetAxept>
+	</modules>
+	
+    <global>
+    	<models>
+        	<bbsnetaxept>
+            	<class>Trollweb_BBSNetAxept_Model</class>
+            </bbsnetaxept>
+        </models>
+        
+        <helpers>
+     		<bbsnetaxept>
+        		<class>Trollweb_BBSNetAxept_Helper</class>
+      		</bbsnetaxept>
+    	</helpers>
+       
+        <resources>
+        	<bbsnetaxept_setup>
+            	<setup>
+	                <module>Trollweb_BBSNetAxept</module>
+	                <class>Trollweb_BBSNetAxept_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+	            	<use>core_setup</use>
+                </connection>
+            </bbsnetaxept_setup> 
+            <bbsnetaxept_write>
+            	<use>core_write</use>
+            </bbsnetaxept_write>
+            <bbsnetaxept_read>
+            	<use>core_read</use>
+            </bbsnetaxept_read>
+        </resources>
+        
+        <blocks>
+            <bbsnetaxept><class>Trollweb_BBSNetAxept_Block</class></bbsnetaxept>
+        </blocks>
+        
+        <payment>
+        	<bbsnetaxept>
+        		<authcode>
+        			<code>authcode</code>
+        			<name>Auth Code</name>
+        		</authcode>
+        	</bbsnetaxept>
+        </payment>
+	</global>
+
+    <frontend>
+        <secure_url>
+            <bbsnetaxept_withgui>/bbsnetaxept/return</bbsnetaxept_withgui>
+        </secure_url>
+        <routers>
+            <bbsnetaxept>
+                <use>standard</use>
+                <args>
+                    <module>Trollweb_BBSNetAxept</module>
+                    <frontName>bbsnetaxept</frontName>
+                </args>
+            </bbsnetaxept>
+        </routers>
+    </frontend>
+
+
+       
+    <default>
+    	<payment>
+        	<bbsnetaxept_withgui>
+            	<active>0</active>
+                <title>Kredittkort</title>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <gw_url>https://epay.bbs.no/cgi/epay.pway</gw_url>
+                <wsdl_url>https://epayment.bbs.no/service.svc?wsdl</wsdl_url>
+                <merchant_id backend_model="adminhtml/system_config_backend_encrypted" />
+                <merchant_token backend_model="adminhtml/system_config_backend_encrypted" />
+                <use_gui>1</use_gui>
+                <gui_language>no_NO</gui_language>
+                <order_status>0</order_status>
+                <allowspecific>0</allowspecific>
+                <sort_order>90</sort_order>
+                <payment_action>auth</payment_action>
+                
+                <model>bbsnetaxept/withGUI</model>
+            </bbsnetaxept_withgui>
+        </payment>
+    </default>
+    
+</config>
