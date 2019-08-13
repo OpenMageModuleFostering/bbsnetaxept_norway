@@ -35,7 +35,7 @@ class Trollweb_BBSNetAxept_ReturnController extends Mage_Core_Controller_Front_A
      */
     public function getStandard()
     {
-        return Mage::getSingleton('BBSNetAxept/WithGUI');
+        return Mage::getSingleton('bbsnetaxept/withGUI');
     }
 
     /**
@@ -46,7 +46,7 @@ class Trollweb_BBSNetAxept_ReturnController extends Mage_Core_Controller_Front_A
     {
         $session = Mage::getSingleton('checkout/session');
         $session->setBBSNetterminalStandardQuoteId($session->getQuoteId());
-        $this->getResponse()->setBody($this->getLayout()->createBlock('BBSNetAxept/withGUI_redirect')->toHtml());
+        $this->getResponse()->setBody($this->getLayout()->createBlock('bbsnetaxept/redirect')->toHtml());
     }
 
     /**

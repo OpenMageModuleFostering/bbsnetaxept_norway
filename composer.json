@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "GPL-License",
     "homepage": "",
-    "description": "Payment gateway for BBS NetAxept. Let your customers pay safely by creditcard and BankAxess/BankID. Module Certified by BBS.",
+    "description": "Payment gateway for BBS Netaxept. Let your customers pay safely by creditcard and BankAxess/BankID. Module certified by BBS.",
     "authors": [
     {
         "name": "Trollweb Solutions AS",

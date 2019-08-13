@@ -21,7 +21,8 @@ class Trollweb_BBSNetAxept_Block_Redirect extends Mage_Core_Block_Abstract
 {
     protected function _toHtml()
     {
-        $standard = Mage::getModel('BBSNetAxept/withGUI');
+
+        $standard = Mage::getModel('bbsnetaxept/withGUI');
 
         $form = new Varien_Data_Form();
         $form->setAction($standard->getBBSUrl())
