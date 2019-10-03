@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/BBSNetAxept_Norway",
+    "name": "OpenMageModuleFostering\/BBSNetAxept_Norway",
     "type": "magento-module",
     "license": "MIT",
     "homepage": "",
     "description": "Nets Netaxept modul for Magento. Sertifisert og godkjent av Nets.",
     "authors": [
-    {
-        "name": "Roy Andre Tollefsen",
-        "email": "royandre@trollweb.no"
-    }
-],
+        {
+            "name": "Roy Andre Tollefsen",
+            "email": "royandre@trollweb.no"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
